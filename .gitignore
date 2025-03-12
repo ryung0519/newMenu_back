@@ -1,0 +1,50 @@
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### 추가된 항목 (Maven, DB 설정, 로그파일 등) ###
+# Maven Dependencies (자동 다운로드되는 라이브러리, Git에 불필요)
+.m2/
+
+# 환경 설정 파일 (DB 비밀번호 보호) ✅ *이건 올리면 안 됨!
+src/main/resources/application.properties
+src/main/resources/application.yml
+src/main/resources/firebase/serviceAccountKey.json
+# 실행 중 생성되는 로그 파일 제외
+*.log
+
+# OS 관련 숨김 파일 제외 (Mac & Windows)
+.DS_Store
+Thumbs.db
+
+# ✅ ojdbc17.jar 파일은 제외하지 않음! (올릴 거면 .gitignore에서 지우기)
