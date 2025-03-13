@@ -8,9 +8,8 @@ import org.springframework.context.annotation.Configuration;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.List;
 
-
-//Firebase 설정 클래스 만듦
 @Configuration
 public class FirebaseConfig {
 
@@ -18,10 +17,19 @@ public class FirebaseConfig {
     public FirebaseApp firebaseApp() throws IOException {
         FileInputStream serviceAccount = new FileInputStream("src/main/resources/firebase/serviceAccountKey.json");
 
-        FirebaseOptions options = new FirebaseOptions.Builder()
+        FirebaseOptions options = FirebaseOptions.builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                 .build();
 
-        return FirebaseApp.initializeApp(options);
+        //파이어베이스 로그 찍히는지는지 알아보기 위한 추가한 코드
+        FirebaseApp app = FirebaseApp.initializeApp(options);
+        System.out.println("✅ Firebase Initialized Successfully!");
+        return app;
     }
+
+
+
+
+
+
 }
