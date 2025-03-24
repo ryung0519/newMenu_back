@@ -19,7 +19,7 @@ public class AuthService {
         this.userRepository = userRepository;
     }
 
-    // 🔹 회원가입하기~
+    // 🔹 회원가입
     public User registerUser(UserSignupRequest request) throws Exception {
         String uid = request.getUid();
         // 이메일 중복 체크
@@ -40,14 +40,14 @@ public class AuthService {
         return userRepository.save(newUser); // 저장받기
     }
 
-    // 🔹 로그인 하기~
+    // 로그인  (토큰 검증 후 유저 조회)
     public User authenticateUser(String token) throws Exception {
-        // Firebase ID 토큰 검증 > 바꿔여함!!
+        //  Firebase 토큰 검증
         FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
-        String email = decodedToken.getEmail();
+        String email = decodedToken.getEmail(); // 이메일 가져오기
 
-        // DB에서 사용자 조회
+        //  이메일로 DB 조회
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new Exception("유저를 찾을 수 없습니다."));
+                .orElseThrow(() -> new Exception("해당 이메일의 유저를 찾을 수 없습니다."));
     }
 }
