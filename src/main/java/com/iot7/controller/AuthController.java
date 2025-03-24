@@ -7,6 +7,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseToken;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -19,7 +21,7 @@ public class AuthController {
         this.authService = authService;
     }
 
-// 🔹 회원가입 API > 콘솔찍어서 확인해보기! > 안나올경우 안나오는 코드이다!
+    // 🔐회원가입 API > 콘솔 상시 확인 > 안나올경우 안되는 코드.
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody UserSignupRequest request) {
         System.out.println("✅ [백엔드] 회원가입 API 호출됨!"); // ← 로그 찍기
@@ -31,12 +33,13 @@ public class AuthController {
         }
     }
 
-    // 🔹 로그인 API > 수정해야함
+    // 로그인 API
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestBody String token) {
+    public ResponseEntity<?> loginUser(@RequestBody Map<String, String> body) {
         try {
-            User user = authService.authenticateUser(token);
-            return ResponseEntity.ok(user);
+            String token = body.get("token"); // 프론트에서 넘겨준 토큰 꺼내기
+            User user = authService.authenticateUser(token); // 서비스로 위임
+            return ResponseEntity.ok(user); // 유저 정보 반환
         } catch (Exception e) {
             return ResponseEntity.status(401).body("로그인 실패: " + e.getMessage());
         }
