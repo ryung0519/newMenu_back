@@ -22,7 +22,7 @@ public class MenuController{
 
     //카테고리에 따른 메뉴 정보를 가져오는 API(홈화면)
     @GetMapping("")
-    public ResponseEntity<List<MenuDTO>> getMenuByCategories(@RequestParam("category") String category ){
+    public ResponseEntity<List<MenuDTO>> getMenuByCategories(@RequestParam("category") String category ){ // path variable방식으로 요청 처리
         List<MenuDTO> menus = menuService.getMenuByCategory(category);
         return ResponseEntity.ok(menus);
     }
