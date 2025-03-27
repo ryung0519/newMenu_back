@@ -26,10 +26,4 @@ public class FirebaseConfig {
         System.out.println("✅ Firebase Initialized Successfully!");
         return app;
     }
-
-
-
-
-
-
 }
