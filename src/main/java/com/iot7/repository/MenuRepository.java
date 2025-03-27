@@ -1,0 +1,25 @@
+package com.iot7.repository;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import java.util.List;
+import com.iot7.dto.MenuDTO;
+import com.iot7.entity.Menu;
+
+@Repository
+public interface MenuRepository extends JpaRepository<Menu, Long>{
+    //카테고리 목록 중복없이 가져오기
+    @Query("SELECT DISTINCT m.category FROM Menu m")
+    List<String> findDistinctCategories();
+
+    //메뉴목록을 DTO로 변환하여 가져오는 코드
+    @Query("SELECT new com.iot7.dto.MenuDTO( m.menuId, m.menuName, m.category, m.price) FROM Menu m WHERE m.category = :category")
+    List<MenuDTO> findMenusByCategory(@Param("category") String category);
+}
+

@@ -3,8 +3,6 @@ package com.iot7.controller;
 import com.iot7.dto.UserSignupRequest;
 import com.iot7.entity.User;
 import com.iot7.service.AuthService;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseToken;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
