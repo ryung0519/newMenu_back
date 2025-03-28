@@ -25,10 +25,16 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody UserSignupRequest request) {
         System.out.println("✅ [백엔드] 회원가입 API 호출됨!"); // ← 로그 찍기
+        System.out.println("받은 데이터: " + request); // 이건 주소만 찍히니까
+
+        System.out.println("이메일: " + request.getEmail());
+        System.out.println("이름: " + request.getName());
+        System.out.println("UID: " + request.getUid());
         try {
             User user = authService.registerUser(request); // uid 기반으로 저장
             return ResponseEntity.ok(user);
         } catch (Exception e) {
+            e.printStackTrace(); // 🔥 콘솔에 실제 오류가 뭔지 찍힘!
             return ResponseEntity.badRequest().body("회원가입 실패: " + e.getMessage());
         }
     }
