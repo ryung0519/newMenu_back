@@ -1,10 +1,11 @@
 package com.iot7.controller;
+//HomeScreen의 카테고리 및 메뉴 관련 컨트롤러
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired; 
 import java.util.List;
-import com.iot7.services.MenuService;
+import com.iot7.service.MenuService;
 import com.iot7.dto.MenuDTO;
 
 @RestController
