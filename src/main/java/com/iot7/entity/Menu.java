@@ -12,8 +12,31 @@ import lombok.*;
 public class Menu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "MENU_ID")
     private Long menuId;
+
+    @Column(name = "MENU_NAME")
     private String menuName;
-    private String category;
+
+    @Column(name = "INGREDIENTS")
+    private String ingredients;
+
+    @Column(name = "PRICE")
     private int price;
+
+    @Column(name = "CLICK_COUNT")
+    private Long clickCount;
+
+    @Column(name = "CALORIE")
+    private Float calorie;
+
+    @Column(name = "REG_DATE")
+    private String regDate;
+
+    @Column(name = "CATEGORY")
+    private String category;
+
+
 }
+
+
