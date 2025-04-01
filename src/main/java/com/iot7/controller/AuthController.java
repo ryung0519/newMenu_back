@@ -24,7 +24,7 @@ public class AuthController {
     // 🔐회원가입 API > 콘솔 상시 확인 > 안나올경우 안되는 코드.
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody UserSignupRequest request) {
-        System.out.println("✅ [백엔드] 회원가입 API 호출됨!"); // ← 로그 찍기
+        System.out.println("✅ [백엔드] 회원가입 API 호출됨!"); // ← 안찍히면 프론트에서 아예 요청이 안간것!
         System.out.println("받은 데이터: " + request); // 이건 주소만 찍히니까
 
         System.out.println("이메일: " + request.getEmail());
