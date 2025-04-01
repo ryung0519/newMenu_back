@@ -1,26 +1,37 @@
-package com.iot7.services;
+package com.iot7.service;
 
-import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
-import java.util.List;
-import com.iot7.repository.MenuRepository;
 import com.iot7.dto.MenuDTO;
+import com.iot7.entity.Menu;
+import com.iot7.repository.MenuRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class MenuService {
-    @Autowired
-    private MenuRepository menuRepository;
 
-    //카테고리 목록 가져옴
-    public List<String> getCategories(){
+    private final MenuRepository menuRepository;
+
+    public MenuService(MenuRepository menuRepository) {
+        this.menuRepository = menuRepository;
+    }
+
+    // 🔹 홈에서 카테고리 목록 가져오기
+    public List<String> getCategories() {
         return menuRepository.findDistinctCategories();
     }
-    //선택한 카테고리의 메뉴 목록 가져옴(DTO방식으로 반환)
-    public List<MenuDTO> getMenuByCategory(String category){
+
+    // 🔹 홈에서 카테고리에 따른 메뉴 목록 가져오기
+    public List<MenuDTO> getMenuByCategory(String category) {
         List<MenuDTO> menus = menuRepository.findMenusByCategory(category);
-        if( menus == null || menus.isEmpty()){
-            throw new RuntimeException("해당 카테고리에 대한 메뉴가 없습니다. "+category);
+        if (menus == null || menus.isEmpty()) {
+            throw new RuntimeException("해당 카테고리에 대한 메뉴가 없습니다. " + category);
         }
         return menus;
+    }
+
+    // 🔹✅  홈에서 키워드로 메뉴 검색 (이름 또는 재료)
+    public List<Menu> searchMenus(String keyword) {
+        return menuRepository.findByMenuNameContainingIgnoreCaseOrIngredientsContainingIgnoreCase(keyword, keyword);
     }
 }
