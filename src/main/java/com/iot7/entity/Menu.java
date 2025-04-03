@@ -1,5 +1,6 @@
 package com.iot7.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -36,6 +37,9 @@ public class Menu {
     @Column(name = "CATEGORY")
     private String category;
 
+    @ManyToOne
+    @JoinColumn(name = "BUSINESS_ID") //FK 컬럼명
+    private BusinessUser businessUser;
 
 }
 
