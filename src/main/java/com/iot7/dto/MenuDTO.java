@@ -12,4 +12,9 @@ public class MenuDTO {
     private String menuName;
     private String category;
     private int price;
+    private String description;
+    private String image;
+    private String brand;
+
+
 }

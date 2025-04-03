@@ -1,6 +1,7 @@
 package com.iot7.service;
 
 import com.iot7.dto.CalendarMenuDTO;
+import com.iot7.entity.Menu;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
@@ -33,11 +34,16 @@ public class MenuService {
 
     //캘린더에서 사용할 전체 메뉴데이터 반환
     public List<CalendarMenuDTO> getAllMenuForCalendar(){
+        List<Menu> menus = menuRepository.findAll();
         return menuRepository.findAll().stream()
                 .map(menu -> new CalendarMenuDTO(
                         menu.getMenuName(),
                         menu.getCategory(),
-                        menu.getRegDate()
+                        menu.getRegDate(),
+                        menu.getBrand(),
+                        menu.getDescription(),
+                        menu.getPrice(),
+                        menu.getImage()
                 ))
                 .collect(Collectors.toList());
     }

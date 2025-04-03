@@ -1,21 +1,35 @@
 package com.iot7.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 //Getter메서드(외부 클래스에서 해당값을 가져올 수 있도록 함)
 @Getter
+@Data
+@AllArgsConstructor
 public class CalendarMenuDTO {
     //멤버 변수 정의
     private final String menuName;
     private final String category;
     private final LocalDateTime regDate;
+    private final String brand;
+    private String description;
+    private int price;
+    private String brandName;
+    private String image;
 
-    //생성자( CalendarMenuDTO 객체를 생성할 때, menuName, category, regDate 값을 받아와서 멤버 변수에 저장)
-    public CalendarMenuDTO(String menuName, String category, LocalDateTime regDate) {
+    public CalendarMenuDTO(String menuName, String category, LocalDateTime regDate,
+                           String brand, String description, int price, String image) {
         this.menuName = menuName;
         this.category = category;
         this.regDate = regDate;
+        this.brand = brand;
+        this.description = description;
+        this.price = price;
+        this.image = image;
     }
 }
+
