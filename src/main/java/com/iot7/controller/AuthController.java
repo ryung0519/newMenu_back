@@ -3,14 +3,14 @@ package com.iot7.controller;
 import com.iot7.dto.UserSignupRequest;
 import com.iot7.entity.User;
 import com.iot7.service.AuthService;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseToken;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 import java.util.Optional;
 
+
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -24,11 +24,17 @@ public class AuthController {
     // 🔐회원가입 API > 콘솔 상시 확인 > 안나올경우 안되는 코드.
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody UserSignupRequest request) {
-        System.out.println("✅ [백엔드] 회원가입 API 호출됨!"); // ← 로그 찍기
+        System.out.println("✅ [백엔드] 회원가입 API 호출됨!"); // ← 안찍히면 프론트에서 아예 요청이 안간것!
+        System.out.println("받은 데이터: " + request); // 이건 주소만 찍히니까
+
+        System.out.println("이메일: " + request.getEmail());
+        System.out.println("이름: " + request.getName());
+        System.out.println("UID: " + request.getUid());
         try {
             User user = authService.registerUser(request); // uid 기반으로 저장
             return ResponseEntity.ok(user);
         } catch (Exception e) {
+            e.printStackTrace(); // 🔥 콘솔에 실제 오류가 뭔지 찍힘!
             return ResponseEntity.badRequest().body("회원가입 실패: " + e.getMessage());
         }
     }
