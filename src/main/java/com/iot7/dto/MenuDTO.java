@@ -1,7 +1,6 @@
 package com.iot7.dto;
 
 import com.iot7.entity.Menu;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
