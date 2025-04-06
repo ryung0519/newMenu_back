@@ -27,7 +27,8 @@ public class MenuService {
     public List<MenuDTO> getMenuByCategory(String category) {
         List<MenuDTO> menus = menuRepository.findMenusByCategory(category);
         if (menus == null || menus.isEmpty()) {
-            throw new RuntimeException("해당 카테고리에 대한 메뉴가 없습니다. " + category);
+            System.out.println(" 해당 카테고리에 대한 메뉴가 없습니다. "+category);
+            return List.of();
         }
         return menus;
     }

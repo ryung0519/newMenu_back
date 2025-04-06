@@ -1,5 +1,6 @@
 package com.iot7.controller;
 
+
 import com.iot7.dto.UserSignupRequest;
 import com.iot7.entity.User;
 import com.iot7.service.AuthService;
@@ -7,8 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-import java.util.Optional;
-
 
 @CrossOrigin("*")
 @RestController

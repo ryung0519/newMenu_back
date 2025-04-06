@@ -18,18 +18,7 @@ public class CalendarMenuDTO {
     private final String brand;
     private String description;
     private int price;
-    private String brandName;
     private String image;
 
-    public CalendarMenuDTO(String menuName, String category, LocalDateTime regDate,
-                           String brand, String description, int price, String image) {
-        this.menuName = menuName;
-        this.category = category;
-        this.regDate = regDate;
-        this.brand = brand;
-        this.description = description;
-        this.price = price;
-        this.image = image;
-    }
 }
 
