@@ -26,6 +26,10 @@ public class AuthService {
         if (existingUser.isPresent()) {
             throw new Exception("이미 가입된 이메일입니다.");
         }
+        // UID (같은 계정인지) 중복 체크
+        if (userRepository.existsById(uid)) {
+            throw new Exception("이미 가입된 계정입니다. 로그인을 해주세요");
+        }
         // 유저 저장
         User newUser = new User();
         newUser.setUserId(uid); //아이디 주입
