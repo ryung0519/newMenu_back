@@ -15,7 +15,9 @@ public class MenuDTO {
     private String category;
     private int price;
     private String businessName;
-
+    private String description;
+    private String image;
+    private String brand;
 
 
     // ✅ 생성자 추가
@@ -40,5 +42,3 @@ public class MenuDTO {
         );
     }
 }
-
-

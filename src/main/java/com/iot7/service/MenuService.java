@@ -1,5 +1,6 @@
 package com.iot7.service;
 
+import com.iot7.dto.CalendarMenuDTO;
 import com.iot7.dto.MenuDTO;
 import com.iot7.entity.Menu;
 import com.iot7.repository.BusinessUserRepository;
@@ -14,16 +15,15 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MenuService {
 
-    private final BusinessUserRepository businessUserRepository;
     private final MenuRepository menuRepository;
+    private final BusinessUserRepository businessUserRepository;
 
-
-    // 🔹 홈에서 카테고리 목록 가져오기
+    // 🔹 카테고리 목록 가져오기
     public List<String> getCategories() {
         return menuRepository.findDistinctCategories();
     }
 
-    // 🔹 홈에서 카테고리에 따른 메뉴 목록 가져오기
+    // 🔹 선택한 카테고리의 메뉴 목록 가져오기 (DTO 방식 반환)
     public List<MenuDTO> getMenuByCategory(String category) {
         List<MenuDTO> menus = menuRepository.findMenusByCategory(category);
         if (menus == null || menus.isEmpty()) {
@@ -32,14 +32,12 @@ public class MenuService {
         return menus;
     }
 
-    // ✅  홈에서 키워드로 메뉴 검색 (이름 또는 재료)
+    // ✅ 홈에서 키워드로 메뉴 검색
     public List<Menu> searchMenus(String keyword) {
         return menuRepository.findByMenuNameContainingIgnoreCaseOrIngredientsContainingIgnoreCase(keyword, keyword);
     }
 
-
-    // ✅"메가커피 주세요!"  → "메가커피 본점 번호 찾기"
-    // ✅"그 번호로 메뉴 가져오기" → "메뉴  프론트에 전달"
+    // ✅ 브랜드 본점 기반 메뉴 가져오기
     public List<MenuDTO> getMenusByBrandMainBranch(String brandName) {
         Long businessId = businessUserRepository.findMainBusinessIdByName(brandName)
                 .orElseThrow(() -> new RuntimeException("본점 정보 없음"));
@@ -49,8 +47,19 @@ public class MenuService {
                 .map(MenuDTO::fromEntity)
                 .collect(Collectors.toList());
     }
+
+    // ✅ 캘린더용 전체 메뉴 데이터 반환
+    public List<CalendarMenuDTO> getAllMenuForCalendar() {
+        return menuRepository.findAll().stream()
+                .map(menu -> new CalendarMenuDTO(
+                        menu.getMenuName(),
+                        menu.getCategory(),
+                        menu.getRegDate(),
+                        menu.getBrand(),
+                        menu.getDescription(),
+                        menu.getPrice(),
+                        menu.getImage()
+                ))
+                .collect(Collectors.toList());
+    }
 }
-
-
-
-

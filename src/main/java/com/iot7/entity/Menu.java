@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "menu")
 @Getter
@@ -31,9 +33,6 @@ public class Menu {
     @Column(name = "CALORIE")
     private Float calorie;
 
-    @Column(name = "REG_DATE")
-    private String regDate;
-
     @Column(name = "CATEGORY")
     private String category;
 
@@ -41,6 +40,13 @@ public class Menu {
     @JoinColumn(name = "BUSINESS_ID") //FK 컬럼명
     private BusinessUser businessUser;
 
+    @Transient
+    private String description;
+    @Transient
+    private String image;
+    @Transient
+    private String brand;
+
+    @Column(name = "reg_date")
+    private LocalDateTime regDate;
 }
-
-
