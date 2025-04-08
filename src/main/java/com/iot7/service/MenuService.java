@@ -38,13 +38,13 @@ public class MenuService {
         return menuRepository.findByMenuNameContainingIgnoreCaseOrIngredientsContainingIgnoreCase(keyword, keyword);
     }
 
-    // ✅ 브랜드 본점 기반 메뉴 가져오기
+    // ✅ 브랜드 필터링 - 본점 기반 메뉴 가져오기
     public List<MenuDTO> getMenusByBrandMainBranch(String brandName) {
-        Long businessId = businessUserRepository.findMainBusinessIdByName(brandName)
+        Long businessId = businessUserRepository.findMainBusinessIdByName(brandName)  // 본점 브랜드의 businiess_id를 가져옴
                 .orElseThrow(() -> new RuntimeException("본점 정보 없음"));
 
-        return menuRepository.findByBusinessUser_BusinessId(businessId)
-                .stream()
+        return menuRepository.findByBusinessUser_BusinessId(businessId)  // 그 아이디로 menu 조회한뒤,
+                .stream()                                               // MENUDTO로 변환한뒤 리스트로 반환뒤 리턴
                 .map(MenuDTO::fromEntity)
                 .collect(Collectors.toList());
     }
