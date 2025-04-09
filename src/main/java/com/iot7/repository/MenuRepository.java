@@ -11,6 +11,7 @@ import com.iot7.entity.Menu;
 
 @Repository
 public interface MenuRepository extends JpaRepository<Menu, Long> {
+
     //카테고리 목록 중복없이 가져오기
     @Query("SELECT DISTINCT m.category FROM Menu m")
     List<String> findDistinctCategories();
