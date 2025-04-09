@@ -2,6 +2,7 @@ package com.iot7.service;
 
 import com.iot7.dto.CalendarMenuDTO;
 import com.iot7.dto.MenuDTO;
+import com.iot7.dto.ProductDetailDTO;
 import com.iot7.entity.Menu;
 import com.iot7.repository.BusinessUserRepository;
 import com.iot7.repository.MenuRepository;
@@ -62,5 +63,14 @@ public class MenuService {
                         menu.getImage()
                 ))
                 .collect(Collectors.toList());
+    }
+
+
+    // ✅ 메뉴 ID로 상세 정보 조회 (상세 페이지용)
+    public ProductDetailDTO getProductDetailById(Long menuId) {
+        Menu menu = menuRepository.findById(menuId) // 직접 안 써도 JPA가 자동으로 제공하는 메서드
+                .orElseThrow(() -> new RuntimeException("해당 메뉴를 찾을 수 없습니다."));
+
+        return new ProductDetailDTO().convertToProductDetailDTO(menu);
     }
 }
