@@ -1,6 +1,7 @@
 package com.iot7.controller;
 //HomeScreen의 카테고리 및 메뉴 관련 컨트롤러
 
+import com.iot7.dto.ProductDetailDTO;
 import com.iot7.entity.Menu;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +45,15 @@ public class MenuController {
         List<MenuDTO> menus = menuService.getMenusByBrandMainBranch(brandName);
         return ResponseEntity.ok(menus);
     }
+
+    // ✅ 메뉴 ID로 상세 정보 조회 (상세 페이지용)
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductDetailDTO> getMenuDetail(@PathVariable Long id) {
+        ProductDetailDTO dto = menuService.getProductDetailById(id);
+        return ResponseEntity.ok(dto);
+    }
+
+
 }
 
 

@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.List;
 
 @Configuration
 public class FirebaseConfig {
@@ -27,3 +26,4 @@ public class FirebaseConfig {
         return app;
     }
 }
+

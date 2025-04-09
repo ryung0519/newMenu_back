@@ -5,7 +5,6 @@ import com.iot7.entity.User;
 import com.iot7.repository.UserRepository;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseToken;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.Optional;

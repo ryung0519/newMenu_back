@@ -1,6 +1,5 @@
 package com.iot7.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -40,12 +39,17 @@ public class Menu {
     @JoinColumn(name = "BUSINESS_ID") //FK 컬럼명
     private BusinessUser businessUser;
 
-    @Transient
+    @Column(name = "DESCRIPTION")
     private String description;
-    @Transient
+
+    @Column(name = "IMAGE_URL")
     private String image;
-    @Transient
+
+    @Transient //db에 실재 존재하지 않고, 임시로만 쓰면 이걸 적어줌
     private String brand;
+
+    @Column(name = "DIET_YN")
+    private String dietYn;
 
     @Column(name = "reg_date")
     private LocalDateTime regDate;
