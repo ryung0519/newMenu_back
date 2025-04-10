@@ -17,10 +17,11 @@ public class MenuDTO {
     private String description;
     private String image;
     private String brand;
+    private String imageUrl;
 
 
     // ✅ 생성자 추가
-    public MenuDTO(Long menuId, String menuName, String category, int price,String businessName) {
+    public MenuDTO(Long menuId, String menuName, String category, int price, String businessName) {
         this.menuId = menuId;
         this.menuName = menuName;
         this.category = category;
@@ -32,12 +33,15 @@ public class MenuDTO {
 
     // ⭐ 필터링 위해서 필요한 엔티티 →  DTO로 변환
     public static MenuDTO fromEntity(Menu menu) {
-        return new MenuDTO(
+        MenuDTO dto = new MenuDTO(
                 menu.getMenuId(),
                 menu.getMenuName(),
                 menu.getCategory(),
                 menu.getPrice(),
                 menu.getBusinessUser().getBusinessName()
         );
+
+        dto.setImageUrl(menu.getImage()); // ✅ 상세페이지에서 브랜드 눌렀을때 이미지 받아오기 위해 추가
+        return dto;
     }
 }
