@@ -27,12 +27,11 @@ public class SecurityConfig {
                 .cors(withDefaults())
                 .formLogin(AbstractHttpConfigurer::disable) // ✅ 기본 로그인 폼 비활성화!
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/**").permitAll()
                         .anyRequest().authenticated()
                         //.anyRequest().authenticated() 인증 활성화 코드
                 )
                 .addFilterBefore(firebaseAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-
         return http.build();
     }
 }
