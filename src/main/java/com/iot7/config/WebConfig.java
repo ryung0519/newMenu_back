@@ -14,13 +14,6 @@ public class WebConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-
-
-        //프론트와 백엔드가 서로 다른 도메인/포트를 사용할 때,
-        //통신을 허용해주는 설정(CORS 허용) 파일
-
-
-
         // React Native 혹은 웹 클라이언트 주소 허용
         configuration.setAllowedOrigins(List.of(
 //                "http://localhost:19006",       // 엑스포 웹 주소
