@@ -21,12 +21,13 @@ public class MenuDTO {
 
 
     // ✅ 생성자 추가
-    public MenuDTO(Long menuId, String menuName, String category, int price, String businessName) {
+    public MenuDTO(Long menuId, String menuName, String category, int price, String businessName,String imageUrl) {
         this.menuId = menuId;
         this.menuName = menuName;
         this.category = category;
         this.price = price;
         this.businessName = businessName;
+        this.imageUrl = imageUrl; // ✅ 이미지 필드 연결
 
     }
 
@@ -38,7 +39,8 @@ public class MenuDTO {
                 menu.getMenuName(),
                 menu.getCategory(),
                 menu.getPrice(),
-                menu.getBusinessUser().getBusinessName()
+                menu.getBusinessUser().getBusinessName(),
+                menu.getImage()
         );
 
         dto.setImageUrl(menu.getImage()); // ✅ 상세페이지에서 브랜드 눌렀을때 이미지 받아오기 위해 추가
