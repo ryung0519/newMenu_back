@@ -15,12 +15,11 @@ public class WebConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-
         //프론트와 백엔드가 서로 다른 도메인/포트를 사용할 때,
-        //통신을 허용해주는 설정(CORS 허용) 파일
+        //통신을 허용해주는 CORS 파일
+        //문열어주는 파일
 
-
-
+      
         // React Native 혹은 웹 클라이언트 주소 허용
         configuration.setAllowedOrigins(List.of(
                //"http://192.168.0.124:8081",  // 192.x.x로 시작하는건 공유기(집, 사무실 등) 주소
