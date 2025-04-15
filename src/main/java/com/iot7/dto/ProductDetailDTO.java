@@ -7,6 +7,8 @@ import lombok.Data;
 import java.util.List;
 
 
+/*상세 페이지에서 필요한 정보들을 담는 파일 */
+
 @Data // ✅ 롬복
 public class ProductDetailDTO {
     private String menuName; // 메뉴 이름
@@ -20,6 +22,8 @@ public class ProductDetailDTO {
     private String businessName; // 브랜드 이름
     private double averageRating; // 평균 별점
     private List<String> combinations; // 같이 먹으면 좋은 조합
+    private List<BlogPostDTO> blogPosts; // 네이버 블로그 검색 결과
+
     //private List<ReviewDTO> reviews;
 
 
