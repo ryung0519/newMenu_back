@@ -26,12 +26,14 @@ public class MenuService {
 
     // 🔹 선택한 카테고리의 메뉴 목록 가져오기 (DTO 방식 반환)
     public List<MenuDTO> getMenuByCategory(String category) {
-        List<MenuDTO> menus = menuRepository.findMenusByCategory(category);
+        List<MenuDTO> menus = menuRepository.findMenusByCategory(category); // ✅ 바로 DTO로 받기
+
         if (menus == null || menus.isEmpty()) {
-            System.out.println(" 해당 카테고리에 대한 메뉴가 없습니다. "+category);
+            System.out.println(" 해당 카테고리에 대한 메뉴가 없습니다. " + category);
             return List.of();
         }
-        return menus;
+
+        return menus; // ✅ 그대로 반환
     }
 
     // ✅ 홈에서 키워드로 메뉴 검색
