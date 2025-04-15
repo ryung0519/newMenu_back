@@ -49,7 +49,6 @@ public class AuthService {
         FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
         String email = decodedToken.getEmail(); // 이메일 가져오기
 
-
         //  이메일로 DB 조회
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new Exception("해당 이메일의 유저를 찾을 수 없습니다."));

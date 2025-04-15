@@ -11,7 +11,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
-
 //요청을 검사하고, 진짜 사용자냐 판단하는 보안 역할의 파일
 //열고 들어온 사람, 진짜 주인인지 확인 하는 파일
 
@@ -22,7 +21,7 @@ public class SecurityConfig {
 
     @Bean
     public FirebaseAuthenticationFilter firebaseAuthenticationFilter() { // 토큰 검사 필터
-        return new FirebaseAuthenticationFilter();
+      return new FirebaseAuthenticationFilter();
     }
 
     @Bean
