@@ -20,5 +20,7 @@ public class CalendarMenuDTO {
     private int price;
     private String image;
 
+    // menu.getBusinessUser().getBusinessName() (brand 가져올 방법)
+
 }
 

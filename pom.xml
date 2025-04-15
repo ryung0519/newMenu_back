@@ -77,7 +77,8 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<scope>provided</scope>
+			<version>3.2.1</version> <!-- 최신 버전 명시 -->
+<!--			<scope>provided</scope>-->
 		</dependency>
 
         <!-- Spring Boot Validation (DTO 검증용) -->

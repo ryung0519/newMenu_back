@@ -57,7 +57,7 @@ public class MenuService {
                         menu.getMenuName(),
                         menu.getCategory(),
                         menu.getRegDate(),
-                        menu.getBrand(),
+                        menu.getBusinessUser().getBusinessName(),
                         menu.getDescription(),
                         menu.getPrice(),
                         menu.getImage()
