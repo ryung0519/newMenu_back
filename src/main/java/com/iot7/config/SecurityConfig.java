@@ -6,6 +6,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.CorsConfigurer;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -27,17 +29,23 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception { // HttpSecurity라는 객체를 통해 보안 규칙을 설정
         http
-                .cors(CorsConfigurer::disable)
-                .cors(withDefaults())
-                .formLogin(AbstractHttpConfigurer::disable) // ✅ 기본 로그인 폼 비활성화(우리는 리엑트 네이티브에서 로그인화면 만들었으니)
+                .csrf(AbstractHttpConfigurer::disable)
+                .cors(withDefaults()) // ✅ cors 설정 유지 (한 줄만 적자)
+                .formLogin(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/**").permitAll() // ✅ 모든 요청 허용
-                        .anyRequest().authenticated()
-                        //.anyRequest().authenticated() 인증 활성화 코드
+                        .anyRequest().permitAll() // ✅모든 요청 무조건 통과 (토큰 없어도 허용)
                 )
                 .addFilterBefore(firebaseAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
+
+    @Bean // ✅ db에서 비밀번호를 암호화(해시)된 값으로 저장하기 위한 파일 생성
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+
+
 }
 
 

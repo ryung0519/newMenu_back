@@ -5,6 +5,7 @@ import com.iot7.entity.User;
 import com.iot7.repository.UserRepository;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.Optional;
@@ -13,9 +14,11 @@ import java.util.Optional;
 public class AuthService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public AuthService(UserRepository userRepository) {
+    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     // 🔹 회원가입
@@ -35,7 +38,7 @@ public class AuthService {
         newUser.setUserId(uid); //아이디 주입
         newUser.setUserName(request.getName()); //이름 주입
         newUser.setEmail(request.getEmail()); //이메일 주입
-        newUser.setPassword(request.getPassword()); // 비번 주입
+        newUser.setPassword(passwordEncoder.encode(request.getPassword())); //비번 암호화로 저장
         newUser.setPreferredFood(request.getPreferredFood());       //좋아하는 음식 주입
         newUser.setAllergicFood(request.getAllergicFood());      //싫어하는 음식 주입
         newUser.setRegDate(new Date()); // 가입날짜
