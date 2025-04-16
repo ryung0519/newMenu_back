@@ -30,9 +30,14 @@ public class MenuService {
     private final MenuRepository menuRepository;
     private final BusinessUserRepository businessUserRepository;
 
-    @Value("${youtube.api.key}") // properties에 있는 설정값을 이 변수에 자동 주입
+    @Value("${youtube.api.key}") // properties에 있는 유튜브 키값을 변수에 자동 주입
     private String youtubeApiKey;
 
+    @Value("${naver.api.client-id}") // properties에 있는 네이버 값을 변수에 자동 주입
+    private String naverClientId;
+
+    @Value("${naver.api.client-secret}")
+    private String naverClientSecret;
 
     // 🔹 카테고리 목록 가져오기
     public List<String> getCategories() {
@@ -123,9 +128,11 @@ public class MenuService {
 
     // ✅ 1.네이버 게시글 검색 함수 추가
     private List<BlogPostDTO> fetchBlogPosts(String query) throws Exception {
-        String clientId = "oFD22Go3wdY8kU4olLAg"; // 🔐 네이버 애플리케이션 등록 후 발급받은 값으로 변경
-        String clientSecret = "JNbOfRH4px";
-        
+
+        // ✅ @Value로 주입한 설정값 사용
+        String clientId = naverClientId;
+        String clientSecret = naverClientSecret;
+
         // ✅ 검색할 주소 생성 query=검색어,sortdate=최신순,display=5개만 보여주기
         String apiURL = "https://openapi.naver.com/v1/search/blog?query=" +
                 URLEncoder.encode(query, "UTF-8") + "&sort=date&display=15";
