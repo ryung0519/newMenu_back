@@ -21,9 +21,17 @@ import java.util.ArrayList; // ⭐ 추가
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Value;
+
 @Service
 @RequiredArgsConstructor
 public class MenuService {
+
+    @Value("${naver.api.client-id}")
+    private String clientId;
+
+    @Value("${naver.api.client-secret}")
+    private String clientSecret;
 
     private final MenuRepository menuRepository;
     private final BusinessUserRepository businessUserRepository;
@@ -104,8 +112,6 @@ public class MenuService {
 
     // ✅ 네이버 블로그 검색 메소드 추가
     private List<BlogPostDTO> fetchBlogPosts(String query) throws Exception {
-        String clientId = "oFD22Go3wdY8kU4olLAg"; // 🔐 네이버 애플리케이션 등록 후 발급받은 값으로 변경
-        String clientSecret = "JNbOfRH4px";
         
         // ✅ 검색할 주소 생성 query=검색어,sortdate=최신순,display=5개만 보여주기
         String apiURL = "https://openapi.naver.com/v1/search/blog?query=" +
