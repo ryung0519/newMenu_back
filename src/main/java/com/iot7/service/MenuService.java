@@ -65,6 +65,7 @@ public class MenuService {
     public List<CalendarMenuDTO> getAllMenuForCalendar() {
         return menuRepository.findAll().stream()
                 .map(menu -> new CalendarMenuDTO(
+                        menu.getMenuId(),
                         menu.getMenuName(),
                         menu.getCategory(),
                         menu.getRegDate(),

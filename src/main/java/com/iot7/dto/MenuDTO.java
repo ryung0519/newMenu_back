@@ -29,8 +29,6 @@ public class MenuDTO {
         this.businessName = businessName;
         this.imageUrl = imageUrl; // ✅ 이미지 필드 연결
         this.description = description;
-
-
     }
     public MenuDTO(Long menuId, String menuName, String category, int price, String businessName, String image) {
     }
