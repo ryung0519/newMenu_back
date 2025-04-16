@@ -21,14 +21,16 @@ public class MenuDTO {
 
 
     // ✅ 생성자 추가
-    public MenuDTO(Long menuId, String menuName, String category, int price, String businessName,String imageUrl) {
+    public MenuDTO(Long menuId, String menuName, String category, int price, String businessName,String imageUrl, String description) {
         this.menuId = menuId;
         this.menuName = menuName;
         this.category = category;
         this.price = price;
         this.businessName = businessName;
         this.imageUrl = imageUrl; // ✅ 이미지 필드 연결
-
+        this.description = description;
+    }
+    public MenuDTO(Long menuId, String menuName, String category, int price, String businessName, String image) {
     }
 
 
