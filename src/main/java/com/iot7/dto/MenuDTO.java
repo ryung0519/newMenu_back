@@ -30,8 +30,6 @@ public class MenuDTO {
         this.imageUrl = imageUrl; // ✅ 이미지 필드 연결
         this.description = description;
     }
-    public MenuDTO(Long menuId, String menuName, String category, int price, String businessName, String image) {
-    }
 
 
     // ⭐ 필터링 위해서 필요한 엔티티 →  DTO로 변환
@@ -42,9 +40,9 @@ public class MenuDTO {
                 menu.getCategory(),
                 menu.getPrice(),
                 menu.getBusinessUser().getBusinessName(),
-                menu.getImage()
+                menu.getImage(),
+                menu.getDescription()
         );
-
         dto.setImageUrl(menu.getImage()); // ✅ 상세페이지에서 브랜드 눌렀을때 이미지 받아오기 위해 추가
         return dto;
     }
