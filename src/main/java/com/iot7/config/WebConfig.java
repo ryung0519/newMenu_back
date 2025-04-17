@@ -23,7 +23,8 @@ public class WebConfig {
         // React Native 혹은 웹 클라이언트 주소 허용
         configuration.setAllowedOrigins(List.of(
                //"http://192.168.0.124:8081",  // 192.x.x로 시작하는건 공유기(집, 사무실 등) 주소
-               "http://10.20.62.201:8081" // 10.x.x.로 시작하는건 일부 공공망 주소
+
+               "http://10.20.64.1:8081" // 10.x.x.로 시작하는건 일부 공공망 주소
 
         ));
 

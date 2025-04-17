@@ -31,27 +31,18 @@ public class MenuDTO {
         this.description = description;
     }
 
+
     // ⭐ 필터링 위해서 필요한 엔티티 →  DTO로 변환
     public static MenuDTO fromEntity(Menu menu) {
-        if (menu == null) return null;
-
-        String businessName = menu.getBusinessUser() != null
-                ? menu.getBusinessUser().getBusinessName()
-                : "알 수 없음";
-
         MenuDTO dto = new MenuDTO(
                 menu.getMenuId(),
                 menu.getMenuName(),
                 menu.getCategory(),
                 menu.getPrice(),
-                businessName,
+                menu.getBusinessUser().getBusinessName(),
                 menu.getImage(),
                 menu.getDescription()
-
         );
-
-        dto.setBrand(businessName); // 브랜드 이름으로도 동일하게 설정
-//        dto.setBrand(menu.getBusinessUser().getBusinessName());
         dto.setImageUrl(menu.getImage()); // ✅ 상세페이지에서 브랜드 눌렀을때 이미지 받아오기 위해 추가
         return dto;
     }
