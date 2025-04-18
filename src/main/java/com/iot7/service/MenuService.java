@@ -1,7 +1,6 @@
 package com.iot7.service;
 import org.springframework.beans.factory.annotation.Value;
 import com.iot7.dto.YoutubeVideoDTO;
-import org.springframework.beans.factory.annotation.Value;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iot7.dto.BlogPostDTO;
@@ -76,10 +75,11 @@ public class MenuService {
     public List<CalendarMenuDTO> getAllMenuForCalendar() {
         return menuRepository.findAll().stream()
                 .map(menu -> new CalendarMenuDTO(
+                        menu.getMenuId(),
                         menu.getMenuName(),
                         menu.getCategory(),
                         menu.getRegDate(),
-                        menu.getBrand(),
+                        menu.getBusinessUser().getBusinessName(),
                         menu.getDescription(),
                         menu.getPrice(),
                         menu.getImage()

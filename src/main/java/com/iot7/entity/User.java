@@ -1,15 +1,16 @@
 package com.iot7.entity;
 
-
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name = "USER_ACCOUNT")
 public class User {
 
@@ -19,7 +20,6 @@ public class User {
 
     @Column(name = "USER_NAME", nullable = false, length = 100)
     private String userName;
-
 
     @Column(name = "EMAIL", nullable = false, unique = true)
     private String email;

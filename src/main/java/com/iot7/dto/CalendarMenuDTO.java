@@ -12,13 +12,18 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class CalendarMenuDTO {
     //멤버 변수 정의
+    private Long menuId;
     private final String menuName;
     private final String category;
     private final LocalDateTime regDate;
     private final String brand;
     private String description;
     private int price;
-    private String image;
+    private String imageUrl;
+
+    // menu.getBusinessUser().getBusinessName() (brand 가져올 방법)
+
 
 }
+
 
