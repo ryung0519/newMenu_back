@@ -46,9 +46,6 @@ public class Menu {
     @Column(name = "IMAGE_URL")
     private String image;
 
-    @Transient //db에 실재 존재하지 않고, 임시로만 쓰면 이걸 적어줌
-    private String brand;
-
     @Column(name = "DIET_YN")
     private String dietYn;
 

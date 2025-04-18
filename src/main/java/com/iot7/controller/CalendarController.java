@@ -1,10 +1,9 @@
 package com.iot7.controller;
 
+import com.iot7.dto.ProductDetailDTO;
 import com.iot7.service.MenuService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import com.iot7.dto.CalendarMenuDTO;
 
 import java.util.List;
@@ -21,5 +20,12 @@ public class CalendarController {
     @GetMapping("/menus")
     public List<CalendarMenuDTO> getCalendarMenus(){
         return menuService.getAllMenuForCalendar();
+    }
+
+    // ✅ 메뉴 ID로 상세 정보 조회 (상세 페이지용)
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductDetailDTO> getMenuDetail(@PathVariable Long id) {
+        ProductDetailDTO dto = menuService.getProductDetailById(id);
+        return ResponseEntity.ok(dto);
     }
 }
