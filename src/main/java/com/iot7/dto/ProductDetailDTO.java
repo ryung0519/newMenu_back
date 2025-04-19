@@ -22,8 +22,8 @@ public class ProductDetailDTO {
     private String businessName; // 브랜드 이름
     private double averageRating; // 평균 별점
     private List<String> combinations; // 같이 먹으면 좋은 조합
-    private List<BlogPostDTO> blogPosts; // 네이버 블로그 검색 결과
-    private List<YoutubeVideoDTO> youtubeVideos; //  유튜브 영상 정보 리스트
+    private List<BlogDTO> blogPosts; // 네이버 블로그 검색 결과
+    private List<YoutubeDTO> youtubeVideos; //  유튜브 영상 정보 리스트
 
     //private List<ReviewDTO> reviews;
 
