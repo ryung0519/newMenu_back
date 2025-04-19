@@ -2,7 +2,7 @@ package com.iot7.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.iot7.dto.YoutubeVideoDTO;
+import com.iot7.dto.YoutubeDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -29,7 +29,7 @@ public class YoutubeService {
 
 
     // ✅유튜브 영상 검색 함수
-    public List<YoutubeVideoDTO> fetchYoutubeVideos(String query) throws Exception {
+    public List<YoutubeDTO> fetchYoutubeVideos(String query) throws Exception {
         String apiURL = "https://www.googleapis.com/youtube/v3/search?part=snippet" + // part=snippet 영상 기본 정보 포함
                 "&q=" + URLEncoder.encode(query + " 리뷰 후기", "UTF-8") +
                 "&type=video" +
@@ -60,13 +60,13 @@ public class YoutubeService {
         JsonNode items = mapper.readTree(response.toString()).get("items");
 
         // ✅ 블로그 글 하나씩 꺼내서 BlogPostDTO에 주입
-        List<YoutubeVideoDTO> videos = new ArrayList<>();
+        List<YoutubeDTO> videos = new ArrayList<>();
         for (JsonNode item : items) {
             String videoId = item.get("id").get("videoId").asText();
             String title = item.get("snippet").get("title").asText();
             String thumbnail = item.get("snippet").get("thumbnails").get("high").get("url").asText();
 
-            videos.add(new YoutubeVideoDTO(videoId, title, thumbnail));
+            videos.add(new YoutubeDTO(videoId, title, thumbnail));
         }
 
         return videos;

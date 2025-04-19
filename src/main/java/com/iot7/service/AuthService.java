@@ -1,6 +1,6 @@
 package com.iot7.service;
 
-import com.iot7.dto.UserSignupRequest;
+import com.iot7.dto.SignupDTO;
 import com.iot7.entity.User;
 import com.iot7.repository.UserRepository;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,7 +22,7 @@ public class AuthService {
     }
 
     // 🔹 회원가입
-    public User registerUser(UserSignupRequest request) throws Exception {
+    public User registerUser(SignupDTO request) throws Exception {
         String uid = request.getUid();
         // 이메일 중복 체크
         Optional<User> existingUser = userRepository.findByEmail(request.getEmail());

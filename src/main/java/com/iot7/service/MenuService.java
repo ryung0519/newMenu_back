@@ -1,9 +1,7 @@
 package com.iot7.service;
 import org.springframework.beans.factory.annotation.Value;
-import com.iot7.dto.YoutubeVideoDTO;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.iot7.dto.BlogPostDTO;
+import com.iot7.dto.YoutubeDTO;
+import com.iot7.dto.BlogDTO;
 import com.iot7.dto.CalendarMenuDTO;
 import com.iot7.dto.MenuDTO;
 import com.iot7.dto.ProductDetailDTO;
@@ -13,11 +11,6 @@ import com.iot7.repository.MenuRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList; // ⭐ 추가
 import java.util.List;
 import java.util.stream.Collectors;
@@ -110,7 +103,7 @@ public class MenuService {
         String query = menu.getBusinessUser().getBusinessName() + " " + menu.getMenuName();
 
         try {
-            List<BlogPostDTO> blogPosts = naverService.fetchBlogPosts(query); // ✅ 네이버 서비스에서 가져옴
+            List<BlogDTO> blogPosts = naverService.fetchBlogPosts(query); // ✅ 네이버 서비스에서 가져옴
             dto.setBlogPosts(blogPosts); // dto에 블로그 글까지 추가로 담기
         } catch (Exception e) {
             e.printStackTrace();
@@ -118,7 +111,7 @@ public class MenuService {
         }
 
         try {
-            List<YoutubeVideoDTO> youtubeVideos = youtubeService.fetchYoutubeVideos(query); // ✅ 유튜브 영상 조회
+            List<YoutubeDTO> youtubeVideos = youtubeService.fetchYoutubeVideos(query); // ✅ 유튜브 영상 조회
             dto.setYoutubeVideos(youtubeVideos);
         } catch (Exception e) {
             e.printStackTrace();
