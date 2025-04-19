@@ -33,7 +33,7 @@ public class AuthService {
         if (userRepository.existsById(uid)) {
             throw new Exception("이미 가입된 계정입니다. 로그인을 해주세요");
         }
-        // 유저 저장
+        // db 저장용 User 엔티티 값에 넣기
         User newUser = new User();
         newUser.setUserId(uid); //아이디 주입
         newUser.setUserName(request.getName()); //이름 주입
