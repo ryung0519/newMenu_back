@@ -1,7 +1,7 @@
 package com.iot7.controller;
 
 
-import com.iot7.dto.UserSignupRequest;
+import com.iot7.dto.SignupDTO;
 import com.iot7.entity.User;
 import com.iot7.service.AuthService;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,7 @@ public class AuthController {
 
     // 🔐회원가입 API > 콘솔 상시 확인 > 안나올경우 안되는 코드.
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody UserSignupRequest request) {
+    public ResponseEntity<?> registerUser(@RequestBody SignupDTO request) {
         System.out.println("✅ [백엔드] 회원가입 API 호출됨!"); // ← 안찍히면 프론트에서 아예 요청이 안간것!
         System.out.println("받은 데이터: " + request); // 이건 주소만 찍히니까
 

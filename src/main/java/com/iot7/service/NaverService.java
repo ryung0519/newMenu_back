@@ -2,7 +2,7 @@ package com.iot7.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.iot7.dto.BlogPostDTO;
+import com.iot7.dto.BlogDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -31,7 +31,7 @@ public class NaverService {
 
 
     // ✅네이버 게시글 검색 함수
-    public List<BlogPostDTO> fetchBlogPosts(String query) throws Exception {
+    public List<BlogDTO> fetchBlogPosts(String query) throws Exception {
 
         // ✅ 설정값을 주입받은 필드를, 메서드 안에서 편하게 쓰기 위해 한번 더 잡아줌
         String clientId = naverClientId;
@@ -70,9 +70,9 @@ public class NaverService {
 
 
         // ✅ 블로그 글 하나씩 꺼내서 BlogPostDTO에 주입
-        List<BlogPostDTO> posts = new ArrayList<>();
+        List<BlogDTO> posts = new ArrayList<>();
         for (JsonNode item : items) {
-            BlogPostDTO post = new BlogPostDTO();
+            BlogDTO post = new BlogDTO();
             post.setTitle(item.get("title").asText().replaceAll("<[^>]*>", "")); // ✅ 태그 제거
             post.setLink(item.get("link").asText());
             post.setBloggerName(item.get("bloggername").asText());
