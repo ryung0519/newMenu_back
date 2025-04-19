@@ -17,6 +17,7 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
 
     // 리뷰 저장 또는 수정
+    //엔티티 > dto 변환
     public ReviewResponseDTO saveOrUpdateReview(ReviewRequestDTO dto) {
         ReviewId id = new ReviewId(dto.getMenuId(), dto.getUserId());
         Review review = Review.builder()
