@@ -51,4 +51,7 @@ public class Menu {
 
     @Column(name = "reg_date")
     private LocalDateTime regDate;
+
+    @Column(name = "AVERAGE_RATING")
+    private Float averageRating;
 }
