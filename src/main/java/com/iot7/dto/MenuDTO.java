@@ -18,17 +18,18 @@ public class MenuDTO {
     private String image;
     private String brand;
     private String imageUrl;
-
+    private Float averageRating;
 
     // ✅ 생성자 추가
-    public MenuDTO(Long menuId, String menuName, String category, int price, String businessName,String imageUrl, String description) {
+    public MenuDTO(Long menuId, String menuName, String category, int price, String businessName,String imageUrl, String description, Float averageRating) {
         this.menuId = menuId;
         this.menuName = menuName;
         this.category = category;
         this.price = price;
         this.businessName = businessName;
-        this.imageUrl = imageUrl; // ✅ 이미지 필드 연결
+        this.imageUrl = imageUrl;
         this.description = description;
+        this.averageRating = averageRating;
     }
 
 
@@ -41,9 +42,10 @@ public class MenuDTO {
                 menu.getPrice(),
                 menu.getBusinessUser().getBusinessName(),
                 menu.getImage(),
-                menu.getDescription()
+                menu.getDescription(),
+                menu.getAverageRating() // ✅ 누락된 평균 별점 추가
         );
-        dto.setImageUrl(menu.getImage()); // ✅ 상세페이지에서 브랜드 눌렀을때 이미지 받아오기 위해 추가
+        dto.setImageUrl(menu.getImage()); // 이건 사실 중복됨 (이미 위에서 imageUrl로 설정됨)
         return dto;
     }
 }
