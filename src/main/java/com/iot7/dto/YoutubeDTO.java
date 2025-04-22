@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class YoutubeVideoDTO {
+public class YoutubeDTO {
     private String videoId; //
     private String title; // 제목
     private String thumbnailUrl; // 썸네일

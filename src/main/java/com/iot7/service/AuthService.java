@@ -1,6 +1,6 @@
 package com.iot7.service;
 
-import com.iot7.dto.UserSignupRequest;
+import com.iot7.dto.SignupDTO;
 import com.iot7.entity.User;
 import com.iot7.repository.UserRepository;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,7 +22,7 @@ public class AuthService {
     }
 
     // 🔹 회원가입
-    public User registerUser(UserSignupRequest request) throws Exception {
+    public User registerUser(SignupDTO request) throws Exception {
         String uid = request.getUid();
         // 이메일 중복 체크
         Optional<User> existingUser = userRepository.findByEmail(request.getEmail());
@@ -33,7 +33,7 @@ public class AuthService {
         if (userRepository.existsById(uid)) {
             throw new Exception("이미 가입된 계정입니다. 로그인을 해주세요");
         }
-        // 유저 저장
+        // db 저장용 User 엔티티 값에 넣기
         User newUser = new User();
         newUser.setUserId(uid); //아이디 주입
         newUser.setUserName(request.getName()); //이름 주입
