@@ -50,6 +50,8 @@ public class MenuController {
         ProductDetailDTO dto = menuService.getProductDetailById(id);
         return ResponseEntity.ok(dto);
     }
+
+
 }
 
 
