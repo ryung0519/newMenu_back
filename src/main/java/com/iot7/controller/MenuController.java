@@ -37,8 +37,6 @@ public class MenuController {
         return ResponseEntity.ok(result);
     }
 
-
-
     // ✅ 브랜드 메뉴 필터링 - 본점 기준, 선택된 브랜드의 메뉴 리스트를 사용자에게 반환
     @GetMapping("/brand")
     public ResponseEntity<List<MenuDTO>> getMenusByBrand(@RequestParam String brandName) {
@@ -46,7 +44,7 @@ public class MenuController {
         return ResponseEntity.ok(menus);
     }
 
-    // ✅ 메뉴 ID로 상세 정보 조회 (상세 페이지용)
+    // ✅ 특정 메뉴를 눌렀을때 상세 페이지에 필요한 모든 정보를 불러옴
     @GetMapping("/{id}")
     public ResponseEntity<ProductDetailDTO> getMenuDetail(@PathVariable Long id) {
         ProductDetailDTO dto = menuService.getProductDetailById(id);

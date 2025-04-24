@@ -34,7 +34,7 @@ public class PosService {
                         calculateDistance(userLat, userLng, pos.getLatitude(), pos.getLongitude())))
 
                 // 4️⃣ 가까운 5개만 선택
-                .limit(5)
+                .limit(3)
 
                 // 5️⃣ 리스트로 수집
                 .collect(Collectors.toList());
