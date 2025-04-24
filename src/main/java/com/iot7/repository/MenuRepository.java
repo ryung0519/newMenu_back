@@ -26,6 +26,9 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
 
     // ✅BUSINESS_ID 하나로 메뉴들 조회
     List<Menu> findByBusinessUser_BusinessId(Long businessId);
+
+    // 메뉴 ID 목록으로 메뉴 검색 (지역기반 메뉴)
+    List<Menu> findByMenuIdIn(List<Long> menuIds);
 }
 
 
