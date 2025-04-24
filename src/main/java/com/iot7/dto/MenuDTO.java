@@ -19,9 +19,13 @@ public class MenuDTO {
     private String brand;
     private String imageUrl;
     private Float averageRating;
+    private Long clickCount;
+
+    //fromEntity()에서 사용하는 생성자 파라미터 순서와 개수는
+    // MenuDTO 생성자와 정확히 일치해야 함!
 
     // ✅ 생성자 추가
-    public MenuDTO(Long menuId, String menuName, String category, int price, String businessName,String imageUrl, String description, Float averageRating) {
+    public MenuDTO(Long menuId, String menuName, String category, int price, String businessName, String imageUrl, String description, Float averageRating, Long clickCount) {
         this.menuId = menuId;
         this.menuName = menuName;
         this.category = category;
@@ -30,12 +34,14 @@ public class MenuDTO {
         this.imageUrl = imageUrl;
         this.description = description;
         this.averageRating = averageRating;
+        this.clickCount = clickCount;
+
     }
 
 
     // ⭐ 필터링 위해서 필요한 엔티티 →  DTO로 변환
     public static MenuDTO fromEntity(Menu menu) {
-        MenuDTO dto = new MenuDTO(
+        return new MenuDTO(
                 menu.getMenuId(),
                 menu.getMenuName(),
                 menu.getCategory(),
@@ -43,9 +49,8 @@ public class MenuDTO {
                 menu.getBusinessUser().getBusinessName(),
                 menu.getImage(),
                 menu.getDescription(),
-                menu.getAverageRating() // ✅ 누락된 평균 별점 추가
+                menu.getAverageRating(),
+                menu.getClickCount()
         );
-        dto.setImageUrl(menu.getImage()); // 이건 사실 중복됨 (이미 위에서 imageUrl로 설정됨)
-        return dto;
     }
 }
