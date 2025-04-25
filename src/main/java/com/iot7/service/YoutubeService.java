@@ -13,6 +13,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -29,48 +30,79 @@ public class YoutubeService {
 
 
     // ✅유튜브 영상 검색 함수
-    public List<YoutubeDTO> fetchYoutubeVideos(String query) throws Exception {
-        String apiURL = "https://www.googleapis.com/youtube/v3/search?part=snippet" + // part=snippet 영상 기본 정보 포함
-                "&q=" + URLEncoder.encode(query + " 리뷰 후기", "UTF-8") +
-                "&type=video" +
-                "&order=relevance" + // ✅ 관련성 높은 순으로 정렬
-                "&maxResults=15" + // ✅ 최대 결과수
-                "&key=" + youtubeApiKey;
+    public List<YoutubeDTO> fetchYoutubeVideos(String query) {
+        try {
+            String apiURL = "https://www.googleapis.com/youtube/v3/search?part=snippet" +
+                    "&q=" + URLEncoder.encode(query + " 리뷰 후기", "UTF-8") +
+                    "&type=video" +
+                    "&order=relevance" +
+                    "&maxResults=15" +
+                    "&key=" + youtubeApiKey;
 
-        // ✅ 네이버 api 서버에 요청보내기
-        HttpURLConnection con = (HttpURLConnection) new URL(apiURL).openConnection();
-        con.setRequestMethod("GET");
+            HttpURLConnection con = (HttpURLConnection) new URL(apiURL).openConnection();
+            con.setRequestMethod("GET");
 
-        // ✅ 200이면 성공, 아니면 에러
-        int responseCode = con.getResponseCode();
-        BufferedReader br = new BufferedReader(new InputStreamReader(
-                responseCode == 200 ? con.getInputStream() : con.getErrorStream()
-        ));
+            int responseCode = con.getResponseCode();
+            BufferedReader br = new BufferedReader(new InputStreamReader(
+                    responseCode == 200 ? con.getInputStream() : con.getErrorStream()
+            ));
 
-        // ✅ JSON 문자열로 만들기
-        StringBuilder response = new StringBuilder();
-        String line;
-        while ((line = br.readLine()) != null) {
-            response.append(line);
+            StringBuilder response = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                response.append(line);
+            }
+            br.close();
+
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode root = mapper.readTree(response.toString());
+
+            // ❗ 오류 정보 로그 출력
+            if (root.has("error")) {
+                JsonNode error = root.get("error");
+                String message = error.has("message") ? error.get("message").asText() : "Unknown error";
+                String reason = error.path("errors").isArray() && error.path("errors").size() > 0
+                        ? error.path("errors").get(0).path("reason").asText()
+                        : "Unknown reason";
+
+                System.out.println("\n========================= [YouTube API 오류] =========================");
+                System.out.println("🔴 reason  : " + reason);
+                System.out.println("🔴 message : " + message);
+                System.out.println("=====================================================================\n");
+                return Collections.emptyList();
+            }
+
+            JsonNode items = root.get("items");
+            List<YoutubeDTO> videos = new ArrayList<>();
+            if (items != null && items.isArray()) {
+                for (JsonNode item : items) {
+                    JsonNode idNode = item.get("id");
+                    JsonNode snippetNode = item.get("snippet");
+                    if (idNode != null && idNode.has("videoId") &&
+                            snippetNode != null && snippetNode.has("title") &&
+                            snippetNode.has("thumbnails") && snippetNode.get("thumbnails").has("high")) {
+
+                        String videoId = idNode.get("videoId").asText();
+                        String title = snippetNode.get("title").asText();
+                        String thumbnail = snippetNode.get("thumbnails").get("high").get("url").asText();
+
+                        videos.add(new YoutubeDTO(videoId, title, thumbnail));
+                    }
+                }
+            }
+
+            return videos;
+        } catch (Exception e) {
+            System.out.println("\n====================== [YouTube API 예외 발생] ======================");
+            System.out.println("❗ 예외 메시지: " + e.getMessage());
+            System.out.println("=====================================================================\n");
+            return Collections.emptyList();
         }
-        br.close();
-
-        // ✅ 문자열을 객체로 바꾸기
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode items = mapper.readTree(response.toString()).get("items");
-
-        // ✅ 블로그 글 하나씩 꺼내서 BlogPostDTO에 주입
-        List<YoutubeDTO> videos = new ArrayList<>();
-        for (JsonNode item : items) {
-            String videoId = item.get("id").get("videoId").asText();
-            String title = item.get("snippet").get("title").asText();
-            String thumbnail = item.get("snippet").get("thumbnails").get("high").get("url").asText();
-
-            videos.add(new YoutubeDTO(videoId, title, thumbnail));
-        }
-
-        return videos;
     }
+
+
+
+
 
 }
 
