@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -33,7 +34,7 @@ public class YoutubeService {
     public List<YoutubeDTO> fetchYoutubeVideos(String query) {
         try {
             String apiURL = "https://www.googleapis.com/youtube/v3/search?part=snippet" +
-                    "&q=" + URLEncoder.encode(query + " 리뷰 후기", "UTF-8") +
+                    "&q=" + URLEncoder.encode(query + " 리뷰 후기", StandardCharsets.UTF_8) +
                     "&type=video" +
                     "&order=relevance" +
                     "&maxResults=15" +
@@ -61,7 +62,7 @@ public class YoutubeService {
             if (root.has("error")) {
                 JsonNode error = root.get("error");
                 String message = error.has("message") ? error.get("message").asText() : "Unknown error";
-                String reason = error.path("errors").isArray() && error.path("errors").size() > 0
+                String reason = error.path("errors").isArray() && !error.path("errors").isEmpty()
                         ? error.path("errors").get(0).path("reason").asText()
                         : "Unknown reason";
 
