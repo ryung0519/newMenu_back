@@ -15,6 +15,8 @@ public class LocalMenuDTO {
     private Integer price;
     private String location;
     private String brand;
+    private String imageUrl;
+
 
 
     public LocalMenuDTO(Menu menu, String location) {
@@ -24,5 +26,7 @@ public class LocalMenuDTO {
         this.price = menu.getPrice();
         this.location = location;
         this.brand = menu.getBusinessUser().getBusinessName();
+        this.imageUrl = menu.getImage();
+
     }
 }
