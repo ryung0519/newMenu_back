@@ -3,6 +3,9 @@ package com.iot7.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /*지도 좌표 받아오기 위해 만든 파일 */
 
 
@@ -37,5 +40,10 @@ public class Pos {
 
     @Column(name = "POS_PASSWORD", nullable = false)
     private String posPassword;
+
+    //localMenu를 가져오기 위한 POS 연결
+    @OneToMany(mappedBy = "pos", cascade = CascadeType.ALL)
+    private List<MenuPos> menuPosList = new ArrayList<>();
+
 }
 

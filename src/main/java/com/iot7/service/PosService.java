@@ -52,7 +52,7 @@ public class PosService {
     }
 
     // ✅ 거리 계산 메서드 (하버사인 공식)
-    private double calculateDistance(double lat1, double lng1, double lat2, double lng2) {
+    public double calculateDistance(double lat1, double lng1, double lat2, double lng2) {
         final int R = 6371; // 지구 반지름 (km)
         double dLat = Math.toRadians(lat2 - lat1); // 위도 차이
         double dLng = Math.toRadians(lng2 - lng1); // 경도 차이
@@ -64,6 +64,8 @@ public class PosService {
 
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         return R * c;
+
+
     }
 }
 
