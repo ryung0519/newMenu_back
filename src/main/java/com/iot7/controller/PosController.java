@@ -2,6 +2,7 @@ package com.iot7.controller;
 
 
 import com.iot7.dto.PosDTO;
+import com.iot7.service.MenuService;
 import com.iot7.service.PosService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,11 +16,12 @@ import java.util.List;
 public class PosController {
 
     private final PosService posService;
-
+    private final MenuService menuService;
 
     // 요리 재료 갖다놓기 (생성자 주입)
-    public PosController(PosService posService) {
+    public PosController(PosService posService, MenuService menuService) {
         this.posService = posService;
+        this.menuService = menuService;
     }
 
     // 가까운 매장 5개 조회 API
@@ -31,4 +33,6 @@ public class PosController {
     ) {
         return posService.findNearestStoresByBrand(brandName, userLat, userLng);
     }
+
+
 }
