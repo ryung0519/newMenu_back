@@ -30,10 +30,10 @@ public class MenuController {
         return ResponseEntity.ok(menus);
     }
 
-    // ✅ 키워드 검색 - 홈 화면 검색창에서 검색했을떄 (이름 or 재료에 포함된 메뉴 반환)
+    // ✅ 키워드 검색 - 홈 화면 검색창에서 검색했을떄 (이름 or 재료에 포함된 메뉴 반환) -DTO반환
     @GetMapping("/search")
-    public ResponseEntity<List<Menu>> searchMenus(@RequestParam("keyword") String keyword) {
-        List<Menu> result = menuService.searchMenus(keyword);
+    public ResponseEntity<List<MenuDTO>> searchMenus(@RequestParam("keyword") String keyword) {
+        List<MenuDTO> result = menuService.searchMenus(keyword);
         return ResponseEntity.ok(result);
     }
 
