@@ -31,7 +31,7 @@ public class MenuDTO {
         this.category = category;
         this.price = price;
         this.businessName = businessName;
-        this.imageUrl = imageUrl;
+        this.image = imageUrl;
         this.description = description;
         this.averageRating = averageRating;
         this.clickCount = clickCount;
