@@ -14,7 +14,7 @@ public class SubscribeService {
     @Autowired
     private SubscriptionRepository subscriptionRepository;
 
-    // DTO를 받아서 Subscription 엔티티로 변환하고 DB에 저장
+    // ✅ DTO를 받아서 Subscription 엔티티로 변환하고 DB에 저장
     public void subscribe(SubscribeDTO dto) {
         System.out.println("✅ [서버] 받은 userId: " + dto.getUserId());
         System.out.println("✅ [서버] 받은 businessId: " + dto.getBusinessId());
@@ -35,7 +35,7 @@ public class SubscribeService {
         subscriptionRepository.save(subscription);
     }
 
-    //구독하기 & 취소하기 메서드
+    //✅ 구독하기 & 취소하기 메서드
     @Transactional // DB 수정 (등록/삭제) 니까 트랜젝션 필요
     public boolean subscribeOrToggle(SubscribeDTO dto) {
         System.out.println("✅ [서버] 받은 userId: " + dto.getUserId());
@@ -58,5 +58,16 @@ public class SubscribeService {
             System.out.println("✅ 구독 등록 완료!");
             return true; // ✅ 지금 구독 중 상태
         }
+
     }
+    //✅ 구독 여부 확인 (프론트에서 브랜드 진입 시 하트 상태용)
+    public boolean isSubscribed(Long userId, Long businessId) {
+        int count = subscriptionRepository.countByUserIdAndBusinessId(userId, businessId);
+        return count > 0; // 하나라도 있으면 true
+    }
+
+
+
+
+
 }
