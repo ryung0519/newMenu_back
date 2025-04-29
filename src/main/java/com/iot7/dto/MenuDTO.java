@@ -17,7 +17,6 @@ public class MenuDTO {
     private String description;
     private String imageUrl;
     private String brand;
-//    private String imageUrl;
     private Float averageRating;
     private Long clickCount;
 
