@@ -15,8 +15,11 @@ public class SubscribeController {
     @Autowired
     private SubscribeService subscribeService;
 
+
+    //✅ 버튼 한번 누르면 구독되거나 or 취소되는 컨트롤러)
     @PostMapping
-    public void subscribe(@RequestBody SubscribeDTO subscribeDTO) {
-        subscribeService.subscribe(subscribeDTO);
+    public boolean subscribeOrToggle(@RequestBody SubscribeDTO subscribeDTO) {
+        return subscribeService.subscribeOrToggle(subscribeDTO);
+        // 👉 등록되면 true, 취소되면 false 리턴
     }
 }
