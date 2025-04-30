@@ -17,8 +17,7 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
     List<String> findDistinctCategories();
 
     //메뉴목록을 DTO로 변환하여 가져오는 코드
-    //(m.description,m.image, m.brand추가 필요)
-    @Query("SELECT new com.iot7.dto.MenuDTO(m.menuId, m.menuName, m.category, m.price, m.businessUser.businessName, m.image, m.description, m.averageRating, m.clickCount) FROM Menu m WHERE m.category = :category")
+    @Query("SELECT new com.iot7.dto.MenuDTO(m.menuId, m.menuName, m.category, m.price, m.businessUser.businessName, m.image, m.description, m.averageRating, m.clickCount,m.businessUser.businessName ) FROM Menu m WHERE m.category = :category")
     List<MenuDTO> findMenusByCategory(@Param("category") String category);
 
     // ✅ 홈화면에서 검색창에 키워드 적어서 MENU_NAME 또는 INGREDIENTS에 포함된 메뉴 검색하는 것!
@@ -27,9 +26,8 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
     // ✅ BUSINESS_ID 하나로 메뉴들 조회
     List<Menu> findByBusinessUser_BusinessId(Long businessId);
 
-
-
-
+    // 메뉴 ID 목록으로 메뉴 검색 (지역기반 메뉴)
+    List<Menu> findByMenuIdIn(List<Long> menuIds);
 }
 
 

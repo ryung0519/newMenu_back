@@ -15,9 +15,8 @@ public class MenuDTO {
     private int price;
     private String businessName;
     private String description;
-    private String image;
-    private String brand;
     private String imageUrl;
+    private String brand;
     private Float averageRating;
     private Long clickCount;
 
@@ -25,7 +24,8 @@ public class MenuDTO {
     // MenuDTO 생성자와 정확히 일치해야 함!
 
     // ✅ 생성자 추가
-    public MenuDTO(Long menuId, String menuName, String category, int price, String businessName, String imageUrl, String description, Float averageRating, Long clickCount) {
+    // ✅ 프론트에서 받을땐 MenuDTO 안에 정의된 필드 이름으로 받아야 한다!
+    public MenuDTO(Long menuId, String menuName, String category, int price, String businessName, String imageUrl, String description, Float averageRating, Long clickCount, String brand) {
         this.menuId = menuId;
         this.menuName = menuName;
         this.category = category;
@@ -35,7 +35,7 @@ public class MenuDTO {
         this.description = description;
         this.averageRating = averageRating;
         this.clickCount = clickCount;
-
+        this.brand = brand;
     }
 
 
@@ -50,7 +50,9 @@ public class MenuDTO {
                 menu.getImage(),
                 menu.getDescription(),
                 menu.getAverageRating(),
-                menu.getClickCount()
+                menu.getClickCount(),
+                menu.getBusinessUser().getBusinessName()
+
         );
     }
 }

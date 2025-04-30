@@ -24,8 +24,9 @@ public class ProductDetailDTO {
     private List<String> combinations; // 같이 먹으면 좋은 조합
     private List<BlogDTO> blogPosts; // 네이버 블로그 검색 결과
     private List<YoutubeDTO> youtubeVideos; //  유튜브 영상 정보 리스트
+    private Long businessId; // ✅ 브랜드 고유 ID (프론트에서 필요함)
 
-    //private List<ReviewDTO> reviews;
+
 
 
     // ⭐ 엔티티 →  DTO로 변환
@@ -42,10 +43,10 @@ public class ProductDetailDTO {
         dto.setDescription(menu.getDescription());
         dto.setImageUrl(menu.getImage());
         dto.setBusinessName(menu.getBusinessUser().getBusinessName());
-        dto.setAverageRating(0.0); // 임시값 넣어놈
+        dto.setBusinessId(menu.getBusinessUser().getBusinessId());
+        dto.setAverageRating(menu.getAverageRating() != null ? menu.getAverageRating() : 0.0);
         dto.setCombinations(List.of()); // 임시 빈리스트 넣어놈
 
         return dto;
     }
-
 }

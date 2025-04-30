@@ -53,9 +53,12 @@ public class MenuService {
     }
 
 
-    // ✅ 홈에서 메뉴 검색
-    public List<Menu> searchMenus(String keyword) {
-        return menuRepository.findByMenuNameContainingIgnoreCaseOrIngredientsContainingIgnoreCase(keyword, keyword);
+    // ✅ 홈에서 메뉴 검색(DTO로 변환해서 반환)
+    public List<MenuDTO> searchMenus(String keyword) {
+        return menuRepository.findByMenuNameContainingIgnoreCaseOrIngredientsContainingIgnoreCase(keyword, keyword)
+                .stream()
+                .map(MenuDTO::fromEntity) // 엔티티 -> DTO 변환
+                .collect(Collectors.toList());
     }
 
 

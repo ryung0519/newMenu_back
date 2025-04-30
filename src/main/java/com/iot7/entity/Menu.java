@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "menu")
@@ -54,4 +56,8 @@ public class Menu {
 
     @Column(name = "AVERAGE_RATING")
     private Float averageRating;
+
+    //localMenu를 가져오기 위한 Menu 연결
+    @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL)
+    private List<MenuPos> menuPosList = new ArrayList<>();
 }
