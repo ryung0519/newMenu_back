@@ -49,7 +49,7 @@ public class MenuDTO {
                 menu.getBusinessUser().getBusinessName(),
                 menu.getImage(),
                 menu.getDescription(),
-                menu.getAverageRating(),
+                menu.getAverageRating() != null ? menu.getAverageRating() : 0.0f,
                 menu.getClickCount(),
                 menu.getBusinessUser().getBusinessName()
 
