@@ -27,7 +27,6 @@ public class ProductDetailDTO {
     private Long businessId; // ✅ 브랜드 고유 ID (프론트에서 필요함)
 
 
-    //private List<ReviewDTO> reviews;
 
 
     // ⭐ 엔티티 →  DTO로 변환
@@ -45,7 +44,7 @@ public class ProductDetailDTO {
         dto.setImageUrl(menu.getImage());
         dto.setBusinessName(menu.getBusinessUser().getBusinessName());
         dto.setBusinessId(menu.getBusinessUser().getBusinessId());
-        dto.setAverageRating(0.0); // 임시값 넣어놈
+        dto.setAverageRating(menu.getAverageRating() != null ? menu.getAverageRating() : 0.0);
         dto.setCombinations(List.of()); // 임시 빈리스트 넣어놈
 
         return dto;
