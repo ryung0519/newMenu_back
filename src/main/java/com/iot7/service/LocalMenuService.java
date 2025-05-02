@@ -16,6 +16,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 @Service
 public class LocalMenuService {
@@ -35,11 +37,65 @@ public class LocalMenuService {
         this.menuPosRepository = menuPosRepository;
     }
 
-    // 지역명으로 메뉴 검색
-    public List<LocalMenuDTO> findMenusByLocationKeyword(String locationKeyword) {
-        // 위치 검색
-        List<Pos> positions = posRepository.findByLocationContaining(locationKeyword);
-        return getMenusFromPositions(positions);
+    // 특정 도시(keyword)에서만 판매되는 메뉴 목록을 찾아서 리턴
+    public List<LocalMenuDTO> findMenusOnlyInLocation(String keyword) {
+        //1. 해당 도시의 POS(매장) 정보 가져오기
+        List<Pos> targetPositions = posRepository.findByLocationContaining(keyword);
+        if (targetPositions.isEmpty()) return Collections.emptyList();
+
+        //2. 가져온 POS들의 ID를 리스트로 변환
+        List<Long> targetPosIds = targetPositions.stream()
+                .map(Pos::getPosId)
+                .collect(Collectors.toList());
+
+        //3. 전체 메뉴-포스 관계 중에서 판매 중인 것만 뽑아옴
+        List<MenuPos> allMenuPos = menuPosRepository.findAll().stream()
+                .filter(mp -> mp.getSaleStatus() != null && mp.getSaleStatus() == 1)
+                .collect(Collectors.toList());
+
+        //4. 각 POS가 어떤 도시(시)에 있는지 매핑 ("충청남도 아산시 탕정면" → "아산시" 로 변환)
+        Map<Long, String> posIdToCity = posRepository.findAll().stream()
+                .filter(p -> p.getLocation() != null)
+                .collect(Collectors.toMap(
+                        Pos::getPosId,
+                        p -> extractCityFromLocation(p.getLocation()),
+                        (existing, replacement) -> existing));
+
+        //5. 메뉴별로 팔리는 도시 리스트 만듦
+        Map<Long, Set<String>> menuIdToCities = allMenuPos.stream()
+                .collect(Collectors.groupingBy(MenuPos::getMenuId,
+                        Collectors.mapping(mp -> posIdToCity.getOrDefault(mp.getPosId(), ""), Collectors.toSet())));
+
+        //6. 해당 메뉴가 오직 하나의 도시에서만 팔리고, 그 도시가 keyword인 경우만 필터링
+        Set<Long> onlyLocalMenuIds = menuIdToCities.entrySet().stream()
+                .filter(entry -> entry.getValue().size() == 1 && entry.getValue().contains(keyword))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toSet());
+
+        if (onlyLocalMenuIds.isEmpty()) return Collections.emptyList();
+
+        //7. 메뉴 ID로 실제 메뉴 데이터 가져오기
+        List<Menu> menus = menuRepository.findByMenuIdIn(new ArrayList<>(onlyLocalMenuIds));
+
+        //8. POS_ID → 전체 LOCATION(주소) 매핑
+        Map<Long, String> posIdToLocation = targetPositions.stream()
+                .collect(Collectors.toMap(Pos::getPosId, Pos::getLocation));
+
+        //9. 메뉴별로 대표 POS 하나를 선택
+        Map<Long, Long> menuToFirstPos = allMenuPos.stream()
+                .filter(mp -> onlyLocalMenuIds.contains(mp.getMenuId()) && targetPosIds.contains(mp.getPosId()))
+                .collect(Collectors.toMap(MenuPos::getMenuId, MenuPos::getPosId, (a, b) -> a));
+
+        //10. DTO 변환해서 리턴
+        return menus.stream()
+                .map(menu -> new LocalMenuDTO(menu, posIdToLocation.getOrDefault(menuToFirstPos.get(menu.getMenuId()), "")))
+                .collect(Collectors.toList());
+    }
+    private String extractCityFromLocation(String location) {
+        return Arrays.stream(location.split(" "))
+                .filter(token -> token.endsWith("시"))
+                .findFirst()
+                .orElse("");
     }
 
     // 사용자 좌표로 메뉴 검색

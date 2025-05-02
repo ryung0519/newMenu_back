@@ -21,9 +21,9 @@ public class LocalMenuController {
     }
 
     // 지역명으로 메뉴 검색
-    @GetMapping("/by-location")
-    public List<LocalMenuDTO> getMenusByLocation(@RequestParam String keyword) {
-        return localMenuService.findMenusByLocationKeyword(keyword);
+    @GetMapping("/only-location")
+    public List<LocalMenuDTO> getMenusOnlyInLocation(@RequestParam String keyword) {
+        return localMenuService.findMenusOnlyInLocation(keyword);
     }
 
     // 좌표로 메뉴 검색
