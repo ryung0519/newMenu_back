@@ -15,5 +15,8 @@ public class ReviewRequestDTO {
     private String taste;
     private String amount;
     private String wouldVisitAgain;
-    private List<String> imageUrls; // JSON으로 직렬화되어 저장될 리스트
+    private List<String> imageUrls;
+
+    private String combinationContent;
+    private Long pairedMenuId;
 }
