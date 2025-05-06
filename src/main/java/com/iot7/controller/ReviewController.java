@@ -16,15 +16,15 @@ public class ReviewController {
 
     private final ReviewService reviewService;
 
-    // 리뷰 작성 또는 수정
     @PostMapping
     public ResponseEntity<ReviewResponseDTO> writeReview(@RequestBody ReviewRequestDTO dto) {
         return ResponseEntity.ok(reviewService.saveOrUpdateReview(dto));
     }
 
-    // 특정 메뉴의 리뷰 목록 조회
     @GetMapping("/menu/{menuId}")
-    public ResponseEntity<List<ReviewResponseDTO>> getReviews(@PathVariable Long menuId) {
-        return ResponseEntity.ok(reviewService.getReviewListByMenuId(menuId));
+    public ResponseEntity<List<ReviewResponseDTO>> getReviews(
+            @PathVariable Long menuId,
+            @RequestParam(defaultValue = "desc") String order) {
+        return ResponseEntity.ok(reviewService.getReviewListByMenuId(menuId, order));
     }
 }

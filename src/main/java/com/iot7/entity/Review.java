@@ -3,11 +3,9 @@ package com.iot7.entity;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
+import org.hibernate.annotations.CreationTimestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -45,9 +43,13 @@ public class Review {
 
     @Column(name = "WOULD_VISIT_AGAIN")
     private String wouldVisitAgain;
-
+    @Lob
     @Column(name = "IMAGE_URLS")
     private String imageUrlsJson; // CLOB에 저장할 JSON 문자열
+
+    @Column(name = "created_at", updatable = false)
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 
     // 이미지 리스트 getter/setter (자동 변환)
     public List<String> getImageUrls() {
@@ -65,5 +67,10 @@ public class Review {
         } catch (Exception e) {
             this.imageUrlsJson = "[]";
         }
+    }
+
+    @Transient
+    public List<String> getImageUrlList() {
+        return getImageUrls(); // ✅ 이미 변환된 리스트를 반환하는 메서드 사용
     }
 }
