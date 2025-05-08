@@ -36,4 +36,7 @@ public class User {
     @Column(name = "REG_DATE", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date regDate;
+
+    // 푸시 토큰
+    private String pushToken;
 }
