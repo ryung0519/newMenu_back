@@ -14,4 +14,7 @@ public interface UserRepository extends JpaRepository<User, String> {
     // userId로 해당 유저의 pushToken 조회
     @Query("SELECT u.pushToken FROM User u WHERE u.userId = :userId")
     String findPushTokenByUserId(@Param("userId") Long userId);
+
+
+
 }

@@ -18,6 +18,7 @@ public class FirebasePushUtil {
         try {
             HttpClient client = HttpClient.newHttpClient();
 
+
             // ✅ expo push 알림 전송을 위한 요청 생성
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create("https://exp.host/--/api/v2/push/send"))
