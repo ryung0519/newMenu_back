@@ -2,6 +2,7 @@ package com.iot7.service;
 
 import com.iot7.entity.Menu;
 import com.iot7.repository.MenuRepository;
+import com.iot7.repository.PushTokenRepository;
 import com.iot7.repository.SubscriptionRepository;
 import com.iot7.repository.UserRepository;
 import com.iot7.util.FirebasePushUtil;
@@ -12,11 +13,11 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class NotificationService {
+public class PushTokenService {
 
     private final MenuRepository menuRepository;
     private final SubscriptionRepository subscriptionRepository;
-    private final UserRepository userAccountRepository;
+    private final PushTokenRepository pushTokenRepository;
     private final FirebasePushUtil firebasePushUtil;
 
     // ✅ 메뉴 저장 + 구독자에게 푸시 알림 전송
@@ -37,7 +38,7 @@ public class NotificationService {
 
         // 4. 각 유저에게 푸시 알림 전송
         for (Long userId : userIds) {
-            String token = userAccountRepository.findPushTokenByUserId(userId);
+            String token = pushTokenRepository.findPushTokenByUserId(userId); //UserRepository를 가져온 거고, 변수명만 다르게 지어줌
             System.out.println("➡️ userId: " + userId + ", token: " + token);
             if (token != null) {
                 firebasePushUtil.sendNotification(
