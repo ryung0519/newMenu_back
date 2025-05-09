@@ -1,5 +1,6 @@
 package com.iot7.repository;
 
+import com.iot7.dto.SubscribeBrandDTO;
 import com.iot7.entity.Subscription;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,6 +20,14 @@ public interface SubscriptionRepository extends JpaRepository<Subscription, Long
     // ✅ 특정 브랜드를 구독한 유저 ID 목록 가져오기
     @Query("SELECT s.userId FROM Subscription s WHERE s.businessId = :businessId")
     List<Long> findUserIdsByBusinessId(@Param("businessId") Long businessId);
+
+    @Query("""
+    SELECT new com.iot7.dto.SubscribeBrandDTO(b.businessId, b.businessName)
+    FROM Subscription s
+    JOIN BusinessUser b ON s.businessId = b.businessId
+    WHERE s.userId = :userId
+""")
+    List<SubscribeBrandDTO> findSubscribedBrandsByUserId(@Param("userId") Long userId);
 }
 
 
