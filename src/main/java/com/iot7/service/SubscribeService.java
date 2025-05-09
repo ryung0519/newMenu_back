@@ -1,12 +1,15 @@
 package com.iot7.service;
 
 
+import com.iot7.dto.SubscribeBrandDTO;
 import com.iot7.dto.SubscribeDTO;
 import com.iot7.entity.Subscription;
 import com.iot7.repository.SubscriptionRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class SubscribeService {
@@ -65,9 +68,7 @@ public class SubscribeService {
         int count = subscriptionRepository.countByUserIdAndBusinessId(userId, businessId);
         return count > 0; // 하나라도 있으면 true
     }
-
-
-
-
-
+    public List<SubscribeBrandDTO> getSubscribedBrandList(Long userId) {
+        return subscriptionRepository.findSubscribedBrandsByUserId(userId);
+    }
 }
