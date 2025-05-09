@@ -88,4 +88,28 @@ public class ReviewService {
                 })
                 .collect(Collectors.toList());
     }
+
+    public List<ReviewResponseDTO> getReviewListByUserId(Long userId) {
+        List<Review> reviewList = reviewRepository.findByUser_UserId(String.valueOf(userId), Sort.by(Sort.Direction.DESC, "createdAt"));
+
+        return reviewList.stream()
+                .map(review -> {
+                    String pairedName = menuCombinationRepository
+                            .findByMenu_MenuIdAndUser_UserId(review.getMenu().getMenuId(), String.valueOf(userId))
+                            .stream()
+                            .findFirst()
+                            .map(combo -> combo.getPairedMenu().getMenuName())
+                            .orElse(null);
+
+                    return new ReviewResponseDTO(review, pairedName);
+                })
+                .collect(Collectors.toList());
+    }
+    public void deleteReview(Long menuId, String userId) {
+        ReviewId reviewId = new ReviewId(menuId, userId);
+        if (!reviewRepository.existsById(reviewId)) {
+            throw new IllegalArgumentException("리뷰가 존재하지 않습니다.");
+        }
+        reviewRepository.deleteById(reviewId);
+    }
 }
