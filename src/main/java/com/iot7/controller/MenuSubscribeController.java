@@ -1,9 +1,12 @@
 package com.iot7.controller;
 
 import com.iot7.dto.MenuSubscribeDTO;
+import com.iot7.dto.SubscribedMenuDTO;
 import com.iot7.service.MenuSubscribeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/menu-subscribe")
@@ -25,4 +28,11 @@ public class MenuSubscribeController {
         //사용자가 메뉴를 구독 중인지 여부 리턴
         return menuSubscribeService.isSubscribed(userId, menuId);
     }
+
+    // 찜한 메뉴 목록 조회 API
+    @GetMapping("/list")
+    public List<SubscribedMenuDTO> getSubscribedMenus(@RequestParam Long userId) {
+        return menuSubscribeService.getSubscribedMenus(userId);
+    }
+
 }
