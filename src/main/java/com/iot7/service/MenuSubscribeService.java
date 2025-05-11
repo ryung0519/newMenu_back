@@ -31,7 +31,6 @@ public class MenuSubscribeService {
             return false; // 구독 취소 상태 리턴
         }
 
-
         // 구독하지 않은 상태면 구독 등록
         MenuSubscribe sub = new MenuSubscribe();//DB 삽입용 엔티티 객체 만들기
         sub.setId(id); // 복합키

@@ -19,7 +19,7 @@ public class MenuSubscribeController {
         return menuSubscribeService.toggleSubscribe(dto);
     }
 
-    // 구독 여부 확인 API (하트 상태용)
+    // 구독 여부 확인 API (하트 상태용) - 구독중이면 true, 아니면 false로 나옴
     @GetMapping("/check")
     public boolean isSubscribed(@RequestParam Long userId, @RequestParam Long menuId) {
         //사용자가 메뉴를 구독 중인지 여부 리턴
