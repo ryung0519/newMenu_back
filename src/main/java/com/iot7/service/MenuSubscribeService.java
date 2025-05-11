@@ -1,6 +1,7 @@
 package com.iot7.service;
 
 import com.iot7.dto.MenuSubscribeDTO;
+import com.iot7.dto.SubscribedMenuDTO;
 import com.iot7.entity.MenuSubscribe;
 import com.iot7.entity.MenuSubscribeId;
 import com.iot7.repository.MenuSubscribeRepository;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class MenuSubscribeService {
@@ -27,8 +29,12 @@ public class MenuSubscribeService {
 
         // 이미 구독 중이면 구독 취소
         if (repository.existsById(id)) {
-            repository.deleteById(id);
-            return false; // 구독 취소 상태 리턴
+            MenuSubscribe existing = repository.findById(id).orElse(null);
+            if (existing != null) {
+                existing.setSubscribeStatus("N");
+                repository.save(existing);
+            }
+            return false;
         }
 
         // 구독하지 않은 상태면 구독 등록
@@ -49,4 +55,8 @@ public class MenuSubscribeService {
 
         return repository.existsById(id); //DB에 있으면 true, 없으면 false
     }
+    public List<SubscribedMenuDTO> getSubscribedMenus(Long userId) {
+        return repository.findSubscribedMenusByUserId(userId);
+    }
+
 }
