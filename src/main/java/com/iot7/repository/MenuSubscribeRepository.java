@@ -1,8 +1,13 @@
 package com.iot7.repository;
 
+import com.iot7.dto.SubscribedMenuDTO;
 import com.iot7.entity.MenuSubscribe;
 import com.iot7.entity.MenuSubscribeId;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 import java.util.Optional;
 
@@ -13,4 +18,6 @@ public interface MenuSubscribeRepository extends JpaRepository<MenuSubscribe, Me
 
     // ✅ userId + menuId로 구독 기록을 조회하고 subscribeStatus가 Y인지 N인지 확인
     Optional<MenuSubscribe> findById(MenuSubscribeId id);
+
+  
 }

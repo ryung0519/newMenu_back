@@ -1,15 +1,17 @@
 package com.iot7.service;
 
 import com.iot7.dto.MenuSubscribeDTO;
+import com.iot7.dto.SubscribedMenuDTO;
 import com.iot7.entity.MenuSubscribe;
 import com.iot7.entity.MenuSubscribeId;
 import com.iot7.repository.MenuSubscribeRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.Optional;
+
+import java.util.List;
 
 @Service
 public class MenuSubscribeService {
@@ -69,4 +71,11 @@ public class MenuSubscribeService {
         // 구독 정보가 존재하고 상태가 Y면 true (하트 빨간색)
         return optional.isPresent() && "Y".equals(optional.get().getSubscribeStatus());
     }
+  
+  
+  
+    public List<SubscribedMenuDTO> getSubscribedMenus(Long userId) {
+        return repository.findSubscribedMenusByUserId(userId);
+    }
+
 }
