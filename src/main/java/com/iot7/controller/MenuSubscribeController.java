@@ -25,4 +25,8 @@ public class MenuSubscribeController {
         //사용자가 메뉴를 구독 중인지 여부 리턴
         return menuSubscribeService.isSubscribed(userId, menuId);
     }
+
+
+
+
 }
