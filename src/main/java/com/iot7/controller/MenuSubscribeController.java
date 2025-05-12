@@ -29,10 +29,10 @@ public class MenuSubscribeController {
         return menuSubscribeService.isSubscribed(userId, menuId);
     }
 
+
     // 찜한 메뉴 목록 조회 API
     @GetMapping("/list")
     public List<SubscribedMenuDTO> getSubscribedMenus(@RequestParam Long userId) {
         return menuSubscribeService.getSubscribedMenus(userId);
     }
-
 }
