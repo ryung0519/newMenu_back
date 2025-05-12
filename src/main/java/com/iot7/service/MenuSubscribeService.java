@@ -71,9 +71,8 @@ public class MenuSubscribeService {
         // 구독 정보가 존재하고 상태가 Y면 true (하트 빨간색)
         return optional.isPresent() && "Y".equals(optional.get().getSubscribeStatus());
     }
-  
-  
-  
+
+
     public List<SubscribedMenuDTO> getSubscribedMenus(Long userId) {
         return repository.findSubscribedMenusByUserId(userId);
     }
