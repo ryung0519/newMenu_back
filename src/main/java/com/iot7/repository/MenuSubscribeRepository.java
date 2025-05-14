@@ -20,11 +20,10 @@ public interface MenuSubscribeRepository extends JpaRepository<MenuSubscribe, Me
     Optional<MenuSubscribe> findById(MenuSubscribeId id);
 
 
-    // ✅ 구독 중인 메뉴 목록을 DTO로 조회 (정상 쿼리)
+     // ✅ 구독 중인 메뉴 목록을 DTO로 조회 (정상 쿼리)
     @Query("SELECT new com.iot7.dto.SubscribedMenuDTO(m.menuId, m.menuName, m.image, m.description) " +
             "FROM MenuSubscribe ms " +
             "JOIN Menu m ON ms.id.menuId = m.menuId " +
             "WHERE ms.id.userId = :userId AND ms.subscribeStatus = 'Y'")
     List<SubscribedMenuDTO> findSubscribedMenusByUserId(@Param("userId") Long userId);
 }
-
