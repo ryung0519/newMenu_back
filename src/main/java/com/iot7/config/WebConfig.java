@@ -24,7 +24,7 @@ public class WebConfig {
         configuration.setAllowedOrigins(List.of(
                //"http://192.168.0.124:8081",  // 192.x.x로 시작하는건 공유기(집, 사무실 등) 주소
 
-               "http://172.16.64.41:8081" // 10.x.x.로 시작하는건 일부 공공망 주소
+               "http://172.16.64.36:8081" // 10.x.x.로 시작하는건 일부 공공망 주소
 
         ));
 
