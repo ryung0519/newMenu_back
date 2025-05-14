@@ -5,7 +5,6 @@ import com.iot7.entity.BusinessUser;
 import com.iot7.entity.Menu;
 import com.iot7.repository.BusinessUserRepository;
 import com.iot7.repository.MenuRepository;
-import com.iot7.service.NotificationService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -16,14 +15,14 @@ public class MenuManageService {
 
     private final BusinessUserRepository businessUserRepository;
     private final MenuRepository menuRepository;
-    private final NotificationService notificationService;
+    private final PushTokenService pushTokenService;
 
     public MenuManageService(BusinessUserRepository businessUserRepository,
                              MenuRepository menuRepository,
-                             NotificationService notificationService) {
+                             PushTokenService pushTokenService) {
         this.businessUserRepository = businessUserRepository;
         this.menuRepository = menuRepository;
-        this.notificationService = notificationService;
+        this.pushTokenService = pushTokenService;
     }
 
     public String registerMenu(MenuRegisterRequestDTO requestDTO, Long businessId) {
@@ -50,7 +49,7 @@ public class MenuManageService {
         menuRepository.save(menu);
 
         //알림 보내는 서비스를 호출하는 코드
-        notificationService.saveMenuAndNotify(menu);
+        pushTokenService.saveMenuAndNotify(menu);
 
         return "메뉴 등록 성공!";
     }

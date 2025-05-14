@@ -1,9 +1,12 @@
 package com.iot7.controller;
 
+import com.iot7.dto.SubscribeBrandDTO;
 import com.iot7.dto.SubscribeDTO;
 import com.iot7.service.SubscribeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/subscribe")
@@ -23,5 +26,9 @@ public class SubscribeController {
     @GetMapping("/check")
     public boolean isSubscribed(@RequestParam Long userId, @RequestParam Long businessId) {
         return subscribeService.isSubscribed(userId, businessId);
+    }
+    @GetMapping("/list")
+    public List<SubscribeBrandDTO> getSubscribedBrands(@RequestParam Long userId) {
+        return subscribeService.getSubscribedBrandList(userId);
     }
 }

@@ -1,12 +1,15 @@
 package com.iot7.service;
 
 
+import com.iot7.dto.SubscribeBrandDTO;
 import com.iot7.dto.SubscribeDTO;
 import com.iot7.entity.Subscription;
 import com.iot7.repository.SubscriptionRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class SubscribeService {
@@ -62,12 +65,12 @@ public class SubscribeService {
     }
     //✅ 구독 여부 확인 (프론트에서 브랜드 진입 시 하트 상태용)
     public boolean isSubscribed(Long userId, Long businessId) {
+        // 70번째 줄 코드는 해당 유저가 해당 브랜드를 구독중인지에 대한 쿼리를 날려줌
+        //SELECT COUNT(*) FROM subscibe WHERE user_id = :userId AND business_id = :businessId;을 날림
         int count = subscriptionRepository.countByUserIdAndBusinessId(userId, businessId);
-        return count > 0; // 하나라도 있으면 true
+        return count > 0;
     }
-
-
-
-
-
+    public List<SubscribeBrandDTO> getSubscribedBrandList(Long userId) {
+        return subscriptionRepository.findSubscribedBrandsByUserId(userId);
+    }
 }

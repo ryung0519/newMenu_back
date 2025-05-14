@@ -18,7 +18,7 @@ public class ReviewResponseDTO {
     private final String wouldVisitAgain;
     private final List<String> imageUrls;
     private final LocalDateTime createdAt;
-
+    private final String menuName;
     @Setter
     private String pairedMenuName;
 
@@ -33,19 +33,12 @@ public class ReviewResponseDTO {
         this.wouldVisitAgain = review.getWouldVisitAgain();
         this.imageUrls = review.getImageUrlList();
         this.createdAt = review.getCreatedAt();
+        this.menuName = review.getMenu().getMenuName();
         this.pairedMenuName = pairedMenuName;
     }
 
-    // ✅ pairedMenuName 없는 기본 생성자도 필요할 수 있음
     public ReviewResponseDTO(Review review) {
-        this.menuId = review.getId().getMenuId();
-        this.userId = review.getId().getUserId();
-        this.reviewContent = review.getReviewContent();
-        this.reviewRating = review.getReviewRating() != null ? review.getReviewRating().doubleValue() : null;
-        this.taste = review.getTaste();
-        this.amount = review.getAmount();
-        this.wouldVisitAgain = review.getWouldVisitAgain();
-        this.imageUrls = review.getImageUrlList();
-        this.createdAt = review.getCreatedAt();
+        this(review, null);
     }
+
 }

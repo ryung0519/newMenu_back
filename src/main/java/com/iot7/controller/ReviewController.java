@@ -27,4 +27,13 @@ public class ReviewController {
             @RequestParam(defaultValue = "desc") String order) {
         return ResponseEntity.ok(reviewService.getReviewListByMenuId(menuId, order));
     }
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<ReviewResponseDTO>> getReviewsByUserId(@PathVariable Long userId) {
+        return ResponseEntity.ok(reviewService.getReviewListByUserId(userId));
+    }
+    @DeleteMapping("/{menuId}/{userId}")
+    public ResponseEntity<String> deleteReview(@PathVariable Long menuId, @PathVariable String userId) {
+        reviewService.deleteReview(menuId, userId);
+        return ResponseEntity.ok("리뷰 삭제 완료");
+    }
 }

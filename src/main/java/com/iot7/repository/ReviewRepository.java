@@ -9,4 +9,6 @@ import java.util.List;
 
 public interface ReviewRepository extends JpaRepository<Review, ReviewId> {
     List<Review> findByMenu_MenuId(Long menuId, Sort sort); // ✅ 수정된 부분
+
+    List<Review> findByUser_UserId(String user_userId, Sort createdAt);
 }
