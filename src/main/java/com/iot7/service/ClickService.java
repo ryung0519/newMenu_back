@@ -2,6 +2,7 @@ package com.iot7.service;
 
 import com.iot7.dto.HotMenuDTO;
 import com.iot7.dto.MenuDTO;
+import com.iot7.dto.SearchBarRankDTO;
 import com.iot7.entity.Menu;
 import com.iot7.repository.ClickRepository;
 
@@ -39,4 +40,15 @@ public class ClickService {
                 ))
                 .collect(Collectors.toList());
     }
+
+    //하루동안 전체 브랜드 클릭수 많았던 제품
+    public List<SearchBarRankDTO> getHotKeywords() {
+        LocalDateTime oneDayAgo = LocalDateTime.now().minusDays(1);
+
+        return clickRepository.findTop10HotKeywords(oneDayAgo).stream()
+                .map(row -> new SearchBarRankDTO((String) row[0])) // menuName만 DTO에 담기
+                .collect(Collectors.toList());
+    }
+
+
 }

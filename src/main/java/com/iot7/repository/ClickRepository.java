@@ -44,10 +44,34 @@ public interface ClickRepository extends JpaRepository<Menu, Long> {
         GROUP BY m.menu_id, m.menu_name, m.image_url
         ORDER BY COUNT(*) DESC
     )
-    WHERE ROWNUM <= 7 // Oracle에서 안정적으로 결과 제한하는 방법 (상위 7개 제품 보여주기)
+    WHERE ROWNUM <= 7 
     """, nativeQuery = true)
     List<Object[]> findTop7HotMenus(@Param("startDate") LocalDateTime startDate);
+
+
+
+
+    //하루동안 전체 브랜드 클릭수 많았던 제품 (Oracle 전용 SQL을 그대로 사용)
+    @Query(value = """
+    SELECT *
+    FROM (
+        SELECT m.menu_name AS menuName,
+               COUNT(*) AS clickCount
+        FROM menu_click_log l
+        JOIN menu m ON l.menu_id = m.menu_id
+        WHERE l.click_time >= :startDate
+        GROUP BY m.menu_name
+        ORDER BY COUNT(*) DESC
+    )
+    WHERE ROWNUM <= 10 
+    """, nativeQuery = true)
+    List<Object[]> findTop10HotKeywords(@Param("startDate") LocalDateTime startDate);
+
 }
+
+
+
+
 
 
 
