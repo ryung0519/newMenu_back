@@ -8,12 +8,9 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 
-
     //회원가입 & 로그인
 public interface UserRepository extends JpaRepository<User, String> {
     Optional<User> findByEmail(String email);
-
-
 
 
 }

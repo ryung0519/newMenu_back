@@ -74,7 +74,3 @@ public interface ClickRepository extends JpaRepository<Menu, Long> {
 
 
 
-
-
-
-
