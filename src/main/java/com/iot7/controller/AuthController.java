@@ -49,4 +49,17 @@ public class AuthController {
             return ResponseEntity.status(401).body("로그인 실패: " + e.getMessage());
         }
     }
+    @PutMapping("/update-profile")
+    public ResponseEntity<?> updateProfile(@RequestBody Map<String, String> body) {
+        try {
+            String userId = body.get("userId");
+            String preferredFood = body.get("preferredFood");
+            String allergicFood = body.get("allergicFood");
+
+            User updatedUser = authService.updateUserProfile(userId, preferredFood, allergicFood);
+            return ResponseEntity.ok(updatedUser);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("프로필 수정 실패: " + e.getMessage());
+        }
+    }
 }

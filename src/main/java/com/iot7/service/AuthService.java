@@ -56,4 +56,18 @@ public class AuthService {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new Exception("해당 이메일의 유저를 찾을 수 없습니다."));
     }
+
+    public User updateUserProfile(String userId, String preferredFood, String allergicFood) throws Exception {
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isEmpty()) {
+            throw new Exception("유저를 찾을 수 없습니다.");
+        }
+
+        User user = userOptional.get();
+        user.setPreferredFood(preferredFood);
+        user.setAllergicFood(allergicFood);
+
+        return userRepository.save(user);
+    }
+
 }
