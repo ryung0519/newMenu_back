@@ -14,7 +14,7 @@ import java.util.Optional;
 public interface BusinessUserRepository extends JpaRepository<BusinessUser, Long> {
 
     // ✅ "메가커피라는 이름의 브랜드 중에서 본점인 곳의 BUSINESS_ID 주세요!"
-    @Query("SELECT b.businessId FROM BusinessUser b WHERE b.businessType = '본점' AND b.businessName = :name")
+    @Query("SELECT b.businessId FROM BusinessUser b WHERE b.businessType = '본점' AND b.businessName = :name  ORDER BY b.businessId ASC")
     Optional<Long> findMainBusinessIdByName(@Param("name") String name);
 
     // ✅ 프론트에 보여줄 브랜드 목록 뽑는 쿼리
