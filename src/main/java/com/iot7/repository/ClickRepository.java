@@ -63,7 +63,7 @@ public interface ClickRepository extends JpaRepository<Menu, Long> {
         GROUP BY m.menu_name
         ORDER BY COUNT(*) DESC
     )
-    WHERE ROWNUM <= 10 
+    WHERE ROWNUM <= 6 
     """, nativeQuery = true)
     List<Object[]> findTop10HotKeywords(@Param("startDate") LocalDateTime startDate);
 
