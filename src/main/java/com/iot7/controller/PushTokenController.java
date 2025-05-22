@@ -37,13 +37,27 @@ public class PushTokenController {
                 }
             }
 
-            // 현재 유저에게만 토큰 저장
-            user.setPushToken(request.getPushToken());
-            pushTokenRepository.save(user);
+            // ✅ 기존 토큰과 다른 경우에만 저장
+            if (!request.getPushToken().equals(user.getPushToken())) {
+                user.setPushToken(request.getPushToken());
+                pushTokenRepository.save(user);
+                return ResponseEntity.ok("✅ 푸시 토큰 저장 완료 (변경됨)");
+            } else {
+                return ResponseEntity.ok("⚠️ 기존 토큰과 동일 – 저장 생략");
+            }
 
-            return ResponseEntity.ok("푸시 토큰 저장 완료!");
         } else {
             return ResponseEntity.badRequest().body("존재하지 않는 사용자입니다.");
         }
     }
+
+    // ✅ 푸시 토큰 조회 API (프론트에서 사용)
+    @GetMapping
+    public ResponseEntity<String> getPushToken(@RequestParam String userId) {
+        String token = pushTokenRepository.findPushTokenByUserId(userId);
+        return ResponseEntity.ok(token); // 없으면 null
+    }
+
+
+
 }
