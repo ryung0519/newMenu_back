@@ -38,7 +38,7 @@ public class PushTokenService {
 
         // 4. 각 유저에게 푸시 알림 전송
         for (Long userId : userIds) {
-            String token = pushTokenRepository.findPushTokenByUserId(userId); //UserRepository를 가져온 거고, 변수명만 다르게 지어줌
+            String token = pushTokenRepository.findPushTokenByUserId(userId.toString()); // ✅ String으로 변환
             System.out.println("➡️ userId: " + userId + ", token: " + token);
             if (token != null) {
                 firebasePushUtil.sendNotification(
