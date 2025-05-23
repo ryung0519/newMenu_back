@@ -37,6 +37,9 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date regDate;
 
+    @Column(name = "NOTIFICATION_YN")
+    private String notificationYn;
+
     // 푸시 토큰
     private String pushToken;
 }
