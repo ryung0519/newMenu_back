@@ -3,13 +3,11 @@ package com.iot7.controller;
 import com.iot7.dto.PushTokenRequest;
 import com.iot7.entity.User;
 import com.iot7.repository.PushTokenRepository;
-import com.iot7.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequiredArgsConstructor // 생성자 자동으로 주입해줌
@@ -53,11 +51,35 @@ public class PushTokenController {
 
     // ✅ 푸시 토큰 조회 API (프론트에서 사용)
     @GetMapping
-    public ResponseEntity<String> getPushToken(@RequestParam String userId) {
-        String token = pushTokenRepository.findPushTokenByUserId(userId);
-        return ResponseEntity.ok(token); // 없으면 null
+    public ResponseEntity<Map<String, String>> getPushToken(@RequestParam String userId) {
+        Optional<User> optionalUser = pushTokenRepository.findById(userId);
+        if (optionalUser.isEmpty()) return ResponseEntity.ok(Collections.emptyMap());
+
+        User user = optionalUser.get();
+
+        Map<String, String> res = new HashMap<>();
+        res.put("token", user.getPushToken());
+        res.put("notificationYn", user.getNotificationYn());
+
+        return ResponseEntity.ok(res);
     }
 
+    @PatchMapping("/toggle")
+    public ResponseEntity<String> toggleNotification(
+            @RequestParam String userId,
+            @RequestParam boolean enabled
+    ) {
+        Optional<User> optionalUser = pushTokenRepository.findById(userId);
+        if (optionalUser.isEmpty()) {
+            return ResponseEntity.badRequest().body("유저 없음");
+        }
+
+        User user = optionalUser.get();
+        user.setNotificationYn(enabled ? "Y" : "N");
+        pushTokenRepository.save(user);
+
+        return ResponseEntity.ok("알림 " + (enabled ? "ON" : "OFF") + " 설정 완료");
+    }
 
 
 }
