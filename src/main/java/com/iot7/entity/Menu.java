@@ -39,7 +39,7 @@ public class Menu {
     private String category;
 
     @ManyToOne
-    @JoinColumn(name = "BUSINESS_ID") //FK 컬럼명
+    @JoinColumn(name = "BUSINESS_ID")
     private BusinessUser businessUser;
 
     @Column(name = "DESCRIPTION")
@@ -60,4 +60,6 @@ public class Menu {
     //localMenu를 가져오기 위한 Menu 연결
     @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL)
     private List<MenuPos> menuPosList = new ArrayList<>();
+
+
 }
