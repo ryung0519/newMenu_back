@@ -1,8 +1,10 @@
-
+-en
+---
 # 🌱 Fresh Guys Backend (Spring Boot)
 
 **Project Duration:** 2025.03.07 ~ 2025.05.30 (2 months)  
 **Award:** Excellence Award, IoT Big Data Application Education Course Outcome Contest (Sunmoon University, May 2025)
+<br>
 
 ## 📌 Project Overview
 The **Fresh Guys** backend is responsible for providing API services and data processing for a mobile application that introduces and recommends newly released menus based on user preferences and regional availability.
@@ -14,7 +16,7 @@ The **Fresh Guys** backend is responsible for providing API services and data pr
 - Connect with POS systems to collect sales and availability data
 - Manage notification triggers for GPS and subscription-based alerts
 
----
+<br>
 
 ## 🏗 Architecture
 
@@ -26,7 +28,7 @@ The **Fresh Guys** backend is responsible for providing API services and data pr
 - **Authentication:** Email & Firebase Token
 - **Other:** POS integration, GPS-based menu service
 
----
+<br>
 
 ## 📡 API Overview
 
@@ -40,7 +42,7 @@ The **Fresh Guys** backend is responsible for providing API services and data pr
 | POST   | `/reviews`                      | Submit a new review for a menu item           |
 | GET    | `/trends/popular`               | (Planned) Get popular menu trends             |
 
----
+<br>
 
 ## 🗄 Database Structure
 
@@ -53,7 +55,7 @@ The **Fresh Guys** backend is responsible for providing API services and data pr
 - `POS_DATA`: Store sales data for trend analysis
 - `ALERTS`: Subscription and GPS-based notification settings
 
----
+<br>
 
 ## ⚡ Implementation Notes
 - Solved **N+1 query problem** with `@EntityGraph` and `JOIN FETCH`
@@ -62,7 +64,7 @@ The **Fresh Guys** backend is responsible for providing API services and data pr
 - Designed **CORS & Security config** to allow React Native (Expo) requests
 - Planned **Firebase Cloud Messaging (FCM)** integration for notifications
 
----
+<br>
 
 ## 🚀 How to Run
 
@@ -91,14 +93,15 @@ spring.jpa.hibernate.ddl-auto=update
 
 Server runs at: **[http://localhost:8080](http://localhost:8080)**
 
----
+<br>
 
 ## 🏆 Award
 
 * **Excellence Award, IoT Big Data Application Education Course Outcome Contest (Sunmoon University, May 2025)**
 
+<br>
+-kr
 ---
-
 # 🌱 싱싱한 녀석들 백엔드 (Spring Boot)
 
 **프로젝트 기간:** 2025.03.07 \~ 2025.05.30 (2개월)
@@ -117,7 +120,7 @@ POS 데이터를 연동하여 메뉴 트렌드를 분석하는 **모바일 서�
 * POS 시스템과 연동하여 판매 데이터 수집
 * GPS 기반 및 구독형 신메뉴 알림 제공
 
----
+<br>
 
 ## 🏗 시스템 아키텍처
 
@@ -130,7 +133,7 @@ POS 데이터를 연동하여 메뉴 트렌드를 분석하는 **모바일 서�
 * **인증:** 이메일 & Firebase Token
 * **기타:** POS 연동, GPS 기반 알림
 
----
+<br>
 
 ## 📡 API 요약
 
@@ -144,7 +147,7 @@ POS 데이터를 연동하여 메뉴 트렌드를 분석하는 **모바일 서�
 | POST   | `/reviews`                  | 메뉴 리뷰 작성          |
 | GET    | `/trends/popular`           | (예정) 인기 메뉴 트렌드 조회 |
 
----
+<br>
 
 ## 🗄 데이터베이스 구조
 
@@ -158,7 +161,7 @@ POS 데이터를 연동하여 메뉴 트렌드를 분석하는 **모바일 서�
 * `POS_DATA`: 매장별 POS 판매 데이터
 * `ALERTS`: 구독 및 GPS 기반 알림 설정
 
----
+<br>
 
 ## ⚡ 구현 특징
 
@@ -168,7 +171,7 @@ POS 데이터를 연동하여 메뉴 트렌드를 분석하는 **모바일 서�
 * **CORS & Security 설정**으로 React Native(Expo) 연동 지원
 * **Firebase Cloud Messaging (FCM)** 알림 기능 연동 예정
 
----
+<br>
 
 ## 🚀 실행 방법
 
@@ -198,18 +201,9 @@ spring.jpa.hibernate.ddl-auto=update
 
 서버 실행 주소: **[http://localhost:8080](http://localhost:8080)**
 
----
+<br>
 
 ## 🏆 수상
 
 * **선문대 IoT 빅데이터 응용교육 성과 경진대회 우수상 (2025.05)**
 
-```
-
----
-
-이걸 그대로 복사해서 `backend/README.md`에 넣으면 돼.  
-원하면 내가 **프론트엔드**도 같은 방식으로 정리해줄 수 있어.  
-
-혹시 프론트엔드도 한 번에 영어+한글 버전으로 만들어줄까?
-```
